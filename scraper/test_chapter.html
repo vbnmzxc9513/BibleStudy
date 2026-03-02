@@ -1,0 +1,1462 @@
+ 
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="zh-tw" ng-app>
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>
+台灣聖經網行動版</title>
+    <meta content="這是一個基督教的社群網站，包含個人化讀經、靈修、聖經知識、全網查經、禱告廣場、見證、金句、詩歌、聖經部落格、社群、基督教新聞、活動、聖經遊戲、軟體下載、信徒線上工具等等..." name="description">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="台灣聖經網">
+    <meta property="og:title" content="null">
+    <meta property="og:description" content="台灣聖經網 - 分享神的話語">
+    <meta property="og:image" content="https://www.taiwanbible.com/img/logo.png">
+    <meta property="og:url" content="http://taiwanbible.com/m/bible/readChapter.jsp">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="null">
+    <meta name="twitter:description" content="台灣聖經網 - 分享神的話語">
+    <meta name="twitter:image" content="https://www.taiwanbible.com/img/logo.png">
+    <meta content="" name="keywords">
+    <meta content="台灣聖經網：lancetw aka Hsin-lin Cheng, 2014" name="author">
+    <meta content="True" name="HandheldFriendly">
+    <meta content="320" name="MobileOptimized">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" name="viewport">
+    <meta content="on" http-equiv="cleartype">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="台灣聖經網" name="apple-mobile-web-app-title">
+    <link href="/m/img/touch/AppIcon72x72@2x~ipad.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+    <link href="/m/img/touch/AppIcon72x72@2x~ipad.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+    <link href="/m/img/touch/AppIcon72x72@2x~ipad.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+    <link href="/m/img/touch/AppIcon72x72@2x~ipad.png" rel="shortcut icon">
+    <link href="/m/img/touch/AppIcon72x72@2x~ipad.png" rel="apple-touch-icon-precomposed">
+    <link href="/m/img/touch/AppIcon72x72@2x~ipad.png" rel="shortcut icon">
+    <meta content="/m/img/touch/AppIcon72x72@2x~ipad.png" name="msapplication-TileImage">
+    <link href="https://www.taiwanbible.com/" rel="canonical">
+    <link href="/m/css/screen.css" media="screen" rel="stylesheet">
+    <!-- %link(rel="stylesheet" media="screen" href="/m/libs/cubiq-add-to-homescreen/style/add2home.css") -->
+    <!-- script src="/m/libs/modernizr/modernizr.js"></script>
+    <!-- %script(src="/m/libs/cubiq-add-to-homescreen/src/add2home.min.js") -->
+    
+    <meta http-equiv="Pragma" content="no-cache"> 
+		<meta http-equiv="Cache-Control" content="no-cache"> 
+		<meta http-equiv="Expires" content="0"> 
+
+  </head>
+  
+  
+  
+  
+  
+  <body class="scrollToContent">
+  
+    <!--[if lt IE 8]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
+    <div class="page" id="wrapper">
+      <div class="bible" id="container">
+        <div class="toogle left">
+          <a class="btn btn-default fa fa-bars" href="#left"></a>
+        </div>
+        <div class="toogle right">
+          <a class="btn btn-default fa fa-plus-square" href="#right"></a>
+        </div>
+        <header class="jumbotron">
+          <div class="twb-header">
+            <div class="twb-title">
+              <a href="/m/">
+                <img src="/m/img/logo/twbible.png" />
+              </a>
+              <div class="twb-http">TaiwanBible.com</div>
+            </div>
+            <h1>台灣聖經網</h1>
+            
+            <div class="twb-donate">
+              <a class="btn btn-primary btn-lg" href="/m/offer.jsp">參與奉獻</a>
+            </div>
+          </div>
+          
+          
+          <form id="search" role="search" method="POST" action="/m/search.jsp" >
+            <input name="area" type="hidden" value="bible">
+            <div class="input-group input-group input-group-lg">
+              
+              
+              
+              <input class="input form-control" data-area="bible" placeholder="聖經搜尋" type="input"  name="keyword">
+              <span class="input-group-btn">
+                <button class="btn btn-warning" type="submit">搜尋</button>
+                <button class="btn btn-warning dropdown-toggle" data-toggle="dropdown" type="button">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" lang="en" role="menu">
+                  
+                  
+                   
+                   
+                   
+                                           
+                  
+                  
+                   
+                  <li>
+                     <a data-area="bible" >聖經</a>
+                  </li>                  
+                   
+                  <li>
+                     <a data-area="topic" >辭典</a>
+                  </li>                  
+                   
+                  <li>
+                     <a data-area="lyrics" >詩歌</a>
+                  </li>                  
+                   
+                  <li>
+                     <a data-area="news" >新聞</a>
+                  </li>                  
+                   
+                  <li>
+                     <a data-area="english" >英文</a>
+                  </li>                  
+                   
+                  <li>
+                     <a data-area="video" >影片</a>
+                  </li>                  
+                   
+                  <li>
+                     <a data-area="wiki" >知識</a>
+                  </li>                  
+                   
+                  <li>
+                     <a data-area="friend" >網友</a>
+                  </li>                  
+                  
+                  
+                </ul>
+              </span>
+            </div>
+            
+          </form>
+        </header>
+        <aside class="left" name="left">
+      
+         
+
+  	
+          
+          <div id="twb-nav">
+            <ul class="nav nav-pills nav-stacked first">
+              <li>
+                <a href="/m/index.jsp">首頁</a>
+              </li>
+              
+              
+              
+              <h2>靈修</h2>
+              
+              
+               
+              
+              <li>
+                <a href="/m/bible/bs.jsp">聖經閱讀</a>
+              </li>
+              
+              <li>
+                <a href="/m/bibleenglish/englishbible.jsp"><img src="/web/imgs/new_4.png" width="28" height="9" align="absmiddle"/>NIV</a>
+              </li>
+              
+              <li>
+                <a href="/m/bible/my.jsp"> <img src="/web/imgs/icon1.png" width="16" height="16" align="absmiddle"/><span style="color: red;">靈修</span></a>
+              </li>
+              <li>
+                <a href="/m/diary/list.jsp">日記</a>
+              </li>
+              <li>
+                <a href="/m/bible/daily.jsp">每日閱讀</a>
+              </li>
+              
+              <li>
+                <a href="/m/bible/dailyverse.jsp">本日金句</a>
+              </li>
+              
+              <li>
+                <a target="_BLANK" href="https://www.taiwanbible.com/web/exam/list.jsp"><span style="color: green;">聖經檢定</span></a>
+              </li>
+              
+              
+              
+              
+              
+              <li>
+                <a href="/m/bible/bibleVerseTool.jsp"><img src="/web/imgs/icon3.fw.png" width="16" height="16" align="absmiddle"/>工具箱</a>
+              </li>
+              
+              <h2>資訊</h2>
+              <li>
+                <a target="_BLANK" href="https://biblesearch.com.tw/topic/index.jsp?PC=1">主題經文</a>
+              </li>
+              
+              
+              <li>
+                <a href="/m/news/first.jsp"> <img src="/web/imgs/icon2.fw.png" width="16" height="16" align="absmiddle"/><span style="color: red;">新聞</span></a>
+              </li>
+              <li>
+                <a target="_BLANK" href="https://event.oursweb.net/">活動</a>
+              </li>
+              <li>
+                <a href="/m/lyrics/index.jsp">詩歌</a>
+              </li>
+              <li>
+                <a href="http://church.oursweb.net/lite/" target="_BLANK">教會</a>
+              </li>
+              <li>
+                <a href="/m/bibleenglish/index.jsp">英文</a>
+              </li>
+              <li>
+                <a href="https://www.taiwanbible.com/web/line/"  target="_blank" ><img src="/web/imgs/line.png" width="16" height="16" align="absmiddle"/>貼圖</a>
+              </li>
+              <li>
+                <a href="/m/main/video.jsp">影片</a>
+              </li>
+              
+                           
+              <h2>聖經網</h2>
+              <li>
+                <a href="https://www.taiwanbible.com/point/" target="_BLANK">靈糧點數中心</a>
+              </li>
+              <li>
+                <a href="/m/contact.jsp">聯絡我們</a>
+              </li>
+               <li>
+                <a href="/m/offer.jsp"> <span style="color: green;">奉獻資訊</span></a>
+              </li>
+            </ul>
+            <ul class="nav nav-pills nav-stacked second">
+              <h2>社群</h2>
+              <li>
+                <a href="/m/main/mypage.jsp">聊天</a>
+              </li>
+              
+              <li>
+                <a href="/m/main/blog.jsp">部落格</a>
+              </li>
+              <li>
+                <a href="/m/pray/sheep.jsp">不能少</a>
+              </li>
+           <li>
+                <a href="/m/pray/praytonight.jsp">禱告時刻</a>
+              </li>
+              
+              
+              
+              <li>
+                <a href="/m/main/friend.jsp">好友</a>
+              </li>
+              <h2>知識</h2>
+              <li>
+                <a href="/m/wiki/first.jsp"> <span style="color: red;">知識庫</span><img src="/web/imgs/icon4.fw.png" width="16" height="16" align="absmiddle"/></a>
+              </li>
+              <li>
+                <a href="/m/word/topic.jsp">主題辭典</a>
+              </li>
+              
+              <h2>分享</h2>
+               <li>
+                <a href="/m/startpage/sermon.jsp"> <span style="color: red;">找講道?</span></a>
+              </li>
+              <li>
+                <a href="/m/pray/view.jsp">禱告廣場</a>
+              </li>
+              <li>
+                <a href="/m/pray/prayForChurch.jsp"><img src="/web/images/church.png" border=0>為教會</a>
+              </li>
+              <li>
+                <a href="/m/pray/children.jsp">為孩子</a>
+              </li>
+             
+              <li>
+                <a href="/m/gospel/testimony.jsp"><img src=/web/imgs/cross.gif border=0>得救見證</a>
+              </li>
+              <li>
+                <a href="http://tool.ccnda.net/line/" target="_BLANK">LINE</a>
+              </li>
+              
+              
+              
+              <h2>遊戲</h2>
+               
+               <li>
+                <a target="_BLANK" href="http://tool.ccnda.net/mem/">背經工具</a>
+              </li>
+              <li>
+                <a href="/m/bible/bookGame.jsp">聖經書櫃</a>
+              </li>
+              <li>
+                <a href="/m/quiz/today.jsp">經頭腦</a>
+              </li>
+               <li>
+                <a href="/m/games/index.jsp">小遊戲</a>
+              </li>
+              
+            </ul>
+          </div>  	
+      
+        </aside>
+
+
+
+
+<main>
+
+   
+
+                    		
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+<div id="bible-read">
+	
+
+
+	
+            <aricle>
+              <div class="content paper paper-white paper-curl">
+
+
+              	
+<div class="btn btn-default">									    											    
+  <a href="readChapter.jsp?Book=GEN&Chapter=1&Version=UNV">和合本</a>
+</div>
+<div class="btn btn-default">									    											    
+  <a href="readChapter.jsp?Book=GEN&Chapter=1&Version=CCB">當代譯本</a>
+</div>
+<div class="btn btn-default">									    											    
+  <a href="readChapter.jsp?Book=GEN&Chapter=1&Version=NCV">新譯本</a>
+</div>
+<div class="btn btn-default">									    											    
+  <a href="readChapter.jsp?Book=GEN&Chapter=1&Version=CNLT">現代中文譯本</a>
+</div>
+<div class="btn btn-default">									    											    
+  <a href="readChapter.jsp?Book=GEN&Chapter=1&Version=CNET">CNET中譯本</a>
+</div>
+
+  
+
+<div class="btn btn-default">									    											    
+  <a href="readChapter.jsp?Book=GEN&Chapter=1&Version=NIV">NIV</a>
+</div>
+
+             	
+              	
+                <h3>
+                  <br>創世記 (和合本)
+                </h3>
+                <h4>
+                  第 1 章
+                </h4>
+                <p>
+                	
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=1&action=submit">01</a>   起初，神創造天地。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=2&action=submit">02</a>   地是空虛混沌，淵面黑暗；神的靈運行在水面上。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=3&action=submit">03</a>   神說：「要有光」，就有了光。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=4&action=submit">04</a>   神看光是好的，就把光暗分開了。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=5&action=submit">05</a>   神稱光為「晝」，稱暗為「夜」。有晚上，有早晨，這是頭一日。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=6&action=submit">06</a>   神說：「諸水之間要有空氣，將水分為上下。」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=7&action=submit">07</a>   神就造出空氣，將空氣以下的水、空氣以上的水分開了。事就這樣成了。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=8&action=submit">08</a>   神稱空氣為「天」。有晚上，有早晨，是第二日。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=9&action=submit">09</a>   神說：「天下的水要聚在一處，使旱地露出來。」事就這樣成了。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=10&action=submit">10</a>   神稱旱地為「地」，稱水的聚處為「海」。神看著是好的。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=11&action=submit">11</a>   神說：「地要發生青草和結種子的菜蔬，並結果子的樹木，各從其類，果子都包著核。」事就這樣成了。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=12&action=submit">12</a>   於是地發生了青草和結種子的菜蔬，各從其類；並結果子的樹木，各從其類；果子都包著核。神看著是好的。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=13&action=submit">13</a>   有晚上，有早晨，是第三日。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=14&action=submit">14</a>   神說：「天上要有光體，可以分晝夜，作記號，定節令、日子、年歲，                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=15&action=submit">15</a>   並要發光在天空，普照在地上。」事就這樣成了。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=16&action=submit">16</a>   於是神造了兩個大光，大的管晝，小的管夜，又造眾星，                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=17&action=submit">17</a>   就把這些光擺列在天空，普照在地上，                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=18&action=submit">18</a>   管理晝夜，分別明暗。神看著是好的。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=19&action=submit">19</a>   有晚上，有早晨，是第四日。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=20&action=submit">20</a>   神說：「水要多多滋生有生命的物；要有雀鳥飛在地面以上，天空之中。」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=21&action=submit">21</a>   神就造出大魚和水中所滋生各樣有生命的動物，各從其類；又造出各樣飛鳥，各從其類。神看著是好的。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=22&action=submit">22</a>   神就賜福給這一切，說：「滋生繁多，充滿海中的水；雀鳥也要多生在地上。」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=23&action=submit">23</a>   有晚上，有早晨，是第五日。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=24&action=submit">24</a>   神說：「地要生出活物來，各從其類；牲畜、昆蟲、野獸，各從其類。」事就這樣成了。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=25&action=submit">25</a>   於是神造出野獸，各從其類；牲畜，各從其類；地上一切昆蟲，各從其類。神看著是好的。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=26&action=submit">26</a>   神說：「我們要照著我們的形像、按著我們的樣式造人，使他們管理海裡的魚、空中的鳥、地上的牲畜，和全地，並地上所爬的一切昆蟲。」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=27&action=submit">27</a>   神就照著自己的形像造人，乃是照著他的形像造男造女。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=28&action=submit">28</a>   神就賜福給他們，又對他們說：「要生養眾多，遍滿地面，治理這地，也要管理海裡的魚、空中的鳥，和地上各樣行動的活物。」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=29&action=submit">29</a>   神說：「看哪，我將遍地上一切結種子的菜蔬和一切樹上所結有核的果子全賜給你們作食物。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=30&action=submit">30</a>   至於地上的走獸和空中的飛鳥，並各樣爬在地上有生命的物，我將青草賜給他們作食物。」事就這樣成了。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=1&Chapter=1&Verse=31&action=submit">31</a>   神看著一切所造的都甚好。有晚上，有早晨，是第六日。                  
+                  
+                </p>
+              </div>
+            </aricle>
+          </div>
+    
+  
+
+
+       
+       
+       <a target="_BLANK" href="https://www.taiwanbible.com/web/exam/">
+         	<img class="img-responsive" src="https://www.taiwanbible.com/web/exam/BANNER/750x250.jpg">
+         </a>	
+          
+</main>
+
+
+
+<aside class="right" name="right">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+
+        <div class="spirit-today">
+            <div class="paper paper-white">
+              <h3 class="text-center">聖經閱讀</h3>
+              <hr>
+              <div class="text-center">
+                <div class="btn-group-vertical">
+                  <a class="btn btn-lg btn-info" href="/m/bible/myfav.jsp">我的最愛</a>
+                  <a class="btn btn-lg btn-info" href="/m/bible/dailyverse.jsp">本日金句</a>
+                  <a class="btn btn-lg btn-info" href="/m/bible/readChapter.jsp?Daily=1">每日一章</a>
+                  <a class="btn btn-lg btn-info" href="/m/bible/calculator.jsp">聖經計算機</a>
+                  <a class="btn btn-lg btn-info" href="/m/bible/bibleVerseTool.jsp">經文工具箱</a>
+                  
+                </div>
+              </div>                            
+            </div>
+          </div>
+          
+          
+        	  <div class="spirit-today">
+            <div class="paper paper-white">
+              <h3 class="text-center">傳送本頁</h3>
+              <hr>
+              <div class="text-center">
+                <a href="http://line.naver.jp/R/msg/text/?%E5%89%B5%E4%B8%96%E8%A8%98+%E7%AC%AC1%E7%AB%A0+%3A+https%3A%2F%2Fwww.taiwanbible.com%2Fm%2Fbible%2FreadChapter.jsp%3FBook%3DGEN%26Chapter%3D1"><img src="/m/img/LINE84x20.png"></a>
+                  
+                
+              </div>                            
+            </div>
+          </div>
+        	 
+  
+
+  
+
+  
+    
+
+            <div class="text-center">
+            <div class="bookmark">
+            	<form method="POST" action="readChapter.jsp">
+							<input type="hidden" name="action" value=setbm>
+							<input type="hidden" name="Book" value="GEN">
+							<input type="hidden" name="Chapter" value="1">
+              <select class="form-control" name="BM" onchange='this.form.submit()'>
+                <option>設定書籤</option>
+                
+                <option value="1">設定本章為書籤 1</option>                
+                
+                <option value="2">設定本章為書籤 2</option>                
+                
+                <option value="3">設定本章為書籤 3</option>                
+                
+                <option value="4">設定本章為書籤 4</option>                
+                
+                <option value="5">設定本章為書籤 5</option>                
+                
+                <option value="6">設定本章為書籤 6</option>                
+                
+              </select>
+             </form><br>
+            </div>
+          </div>
+          
+          <div class="text-center">
+            <div class="bookmark">
+            	<form method="POST" action="readChapter.jsp">
+							<input type="hidden" name="action" value=setmyfav>
+							<input type="hidden" name="Book" value="GEN">
+							<input type="hidden" name="Chapter" value="1">
+              <select class="form-control" name="Verse" onchange='this.form.submit()'>
+                <option>加到我的最愛</option>
+                
+                <option value="1">第 1 節</option>                
+                
+                <option value="2">第 2 節</option>                
+                
+                <option value="3">第 3 節</option>                
+                
+                <option value="4">第 4 節</option>                
+                
+                <option value="5">第 5 節</option>                
+                
+                <option value="6">第 6 節</option>                
+                
+                <option value="7">第 7 節</option>                
+                
+                <option value="8">第 8 節</option>                
+                
+                <option value="9">第 9 節</option>                
+                
+                <option value="10">第 10 節</option>                
+                
+                <option value="11">第 11 節</option>                
+                
+                <option value="12">第 12 節</option>                
+                
+                <option value="13">第 13 節</option>                
+                
+                <option value="14">第 14 節</option>                
+                
+                <option value="15">第 15 節</option>                
+                
+                <option value="16">第 16 節</option>                
+                
+                <option value="17">第 17 節</option>                
+                
+                <option value="18">第 18 節</option>                
+                
+                <option value="19">第 19 節</option>                
+                
+                <option value="20">第 20 節</option>                
+                
+                <option value="21">第 21 節</option>                
+                
+                <option value="22">第 22 節</option>                
+                
+                <option value="23">第 23 節</option>                
+                
+                <option value="24">第 24 節</option>                
+                
+                <option value="25">第 25 節</option>                
+                
+                <option value="26">第 26 節</option>                
+                
+                <option value="27">第 27 節</option>                
+                
+                <option value="28">第 28 節</option>                
+                
+                <option value="29">第 29 節</option>                
+                
+                <option value="30">第 30 節</option>                
+                
+                <option value="31">第 31 節</option>                
+                
+              </select>
+             </form>
+            </div>
+          </div>
+          
+					<div class="list-group chapters">
+						  
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=1">
+            
+              第 1 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=2">
+            
+              第 2 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=3">
+            
+              第 3 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=4">
+            
+              第 4 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=5">
+            
+              第 5 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=6">
+            
+              第 6 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=7">
+            
+              第 7 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=8">
+            
+              第 8 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=9">
+            
+              第 9 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=10">
+            
+              第 10 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=11">
+            
+              第 11 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=12">
+            
+              第 12 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=13">
+            
+              第 13 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=14">
+            
+              第 14 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=15">
+            
+              第 15 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=16">
+            
+              第 16 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=17">
+            
+              第 17 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=18">
+            
+              第 18 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=19">
+            
+              第 19 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=20">
+            
+              第 20 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=21">
+            
+              第 21 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=22">
+            
+              第 22 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=23">
+            
+              第 23 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=24">
+            
+              第 24 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=25">
+            
+              第 25 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=26">
+            
+              第 26 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=27">
+            
+              第 27 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=28">
+            
+              第 28 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=29">
+            
+              第 29 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=30">
+            
+              第 30 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=31">
+            
+              第 31 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=32">
+            
+              第 32 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=33">
+            
+              第 33 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=34">
+            
+              第 34 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=35">
+            
+              第 35 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=36">
+            
+              第 36 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=37">
+            
+              第 37 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=38">
+            
+              第 38 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=39">
+            
+              第 39 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=40">
+            
+              第 40 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=41">
+            
+              第 41 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=42">
+            
+              第 42 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=43">
+            
+              第 43 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=44">
+            
+              第 44 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=45">
+            
+              第 45 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=46">
+            
+              第 46 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=47">
+            
+              第 47 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=48">
+            
+              第 48 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=49">
+            
+              第 49 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=GEN&Chapter=50">
+            
+              第 50 章
+            </a>
+            
+            
+            
+            
+          </div>
+  
+
+  <!-- ✅ 修正順序：先 enableSingleRequest 再 defineSlot 再 enableServices -->
+  <div id="div-gpt-ad-footer"
+       style="width:335px; height:150px; margin: 20px auto; display: block;">
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous"></script>
+    <script>
+      window.googletag = window.googletag || {cmd: []};
+      googletag.cmd.push(function() {
+        googletag.pubads().enableSingleRequest(); // ✅ 放最前面
+        googletag.defineSlot('/1002710/AD335x150', [335, 150], 'div-gpt-ad-footer')
+          .addService(googletag.pubads());
+        googletag.enableServices();
+      });
+    </script>
+    <script>
+      googletag.cmd.push(function() {
+        googletag.display('div-gpt-ad-footer');
+      });
+    </script>
+  </div>
+
+  <hr>
+</aside>
+</div>
+</div>
+
+<footer>
+  <div id="copyright">
+    <p>台灣聖經網．2015 <a href="https://www.taiwanbible.com/web/first.jsp?PC=0"><font color=white>【切換成電腦版】</font></a></p>
+    <p><small>社團法人中華基督教網路發展協會 提供</small></p>
+    <p><small>Serve by Chinese Christian Network Development Association</small></p>
+  </div>
+</footer>
+
+<script data-main="/m/js/main" src="/m/js/require.js?v=9978"></script>
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d59445749c0b301',t:'MTc3MjM3OTY5Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
+
+
