@@ -1,0 +1,80 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - img [ref=e7]
+        - heading "Bible Study" [level=1] [ref=e9]
+      - button "中" [active] [ref=e10] [cursor=pointer]:
+        - img [ref=e11]
+        - generic [ref=e15]: 中
+    - navigation [ref=e16]:
+      - link "Home" [ref=e17] [cursor=pointer]:
+        - /url: /
+        - img [ref=e18]
+        - generic [ref=e21]: Home
+      - link "Bible" [ref=e22] [cursor=pointer]:
+        - /url: /books
+        - img [ref=e23]
+        - generic [ref=e25]: Bible
+      - link "Profile" [ref=e26] [cursor=pointer]:
+        - /url: /profile
+        - img [ref=e27]
+        - generic [ref=e30]: Profile
+    - button "AI Settings" [ref=e32] [cursor=pointer]:
+      - img [ref=e33]
+      - generic [ref=e36]: AI Settings
+  - main [ref=e37]:
+    - heading "Bible Study" [level=2] [ref=e39]
+    - generic [ref=e40]:
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - heading "Good Morning, Reader ✨" [level=1] [ref=e43]
+          - paragraph [ref=e44]: Let's continue your spiritual journey today.
+        - generic [ref=e45]:
+          - img [ref=e46]
+          - generic [ref=e48]: 0 Days
+      - generic [ref=e49]:
+        - generic [ref=e50]:
+          - img [ref=e52]
+          - generic [ref=e54]:
+            - heading "Matthew - Chapter 1" [level=2] [ref=e55]
+            - paragraph [ref=e56]: The Genealogy of Jesus
+        - button "Resume Reading" [ref=e58] [cursor=pointer]:
+          - img [ref=e59]
+          - generic [ref=e61]: Resume Reading
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - img [ref=e64]
+          - heading "Reading Footprint (Last 6 Months)" [level=3] [ref=e66]
+        - img [ref=e69]:
+          - generic [ref=e70]:
+            - generic [ref=e71]: Sep
+            - generic [ref=e72]: Oct
+            - generic [ref=e73]: Nov
+            - generic [ref=e74]: Dec
+            - generic [ref=e75]: Jan
+            - generic [ref=e76]: Feb
+            - generic [ref=e77]: Mar
+          - generic [ref=e286]:
+            - generic [ref=e287]: Mon
+            - generic [ref=e288]: Wed
+            - generic [ref=e289]: Fri
+      - generic [ref=e290]:
+        - generic [ref=e291]:
+          - img [ref=e292]
+          - heading "Your Progress" [level=3] [ref=e298]
+        - generic [ref=e299]:
+          - generic [ref=e300]:
+            - generic [ref=e301]:
+              - heading "New Testament" [level=4] [ref=e302]
+              - generic [ref=e303]: 0.0%
+            - paragraph [ref=e305]: 0 / 260 Chapters
+          - generic [ref=e306]:
+            - generic [ref=e307]:
+              - heading "Matthew" [level=4] [ref=e308]
+              - generic [ref=e309]: 0.0%
+            - paragraph [ref=e311]: 0 / 28 Chapters
+```

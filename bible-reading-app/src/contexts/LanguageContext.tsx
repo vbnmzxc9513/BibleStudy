@@ -37,9 +37,14 @@ const translations: Translations = {
         aiPrompt: '您希望 AI 牧師為您解說本章的光照與神學意涵嗎？',
         aiBtn: '✨ AI 陪你解經',
         finishReading: '閱讀完畢並測驗',
+        startQuiz: '開始測驗',
+        generatingContent: '✨ AI 正在為您產生解析...',
         recapQuiz: '重點測驗',
-        quizDesc: '5 道題目鞏固您的理解。',
         submitReturn: '送出並回首頁',
+        apiKeyWarning: '⚠️ 請先至個人頁面設定您的 AI API Key (BYOK)！',
+        guestProgressWarning: '⚠️ 您目前為訪客身分（未登入）。本次測驗進度僅保存在本地，不會同步至雲端喔！',
+        apiGenerationFailed: '❌ AI 產生失敗。請稍後再試。',
+        apiErrorPleaseCheckKey: '⚠️ 發生錯誤！請確認您的 API Key 是否正確或尚有額度。',
 
         // Profile
         yourProfile: '您的個人資料',
@@ -54,6 +59,8 @@ const translations: Translations = {
         savedLocally: '已儲存於本機！',
         getApiKey: '取得 OpenAI 金鑰',
         getGeminiApiKey: '取得 Gemini 金鑰',
+        aiModel: 'AI 模型',
+        selectAiModel: '選擇 AI 模型',
     },
     en: {
         // Layout
@@ -82,9 +89,14 @@ const translations: Translations = {
         aiPrompt: 'Would you like an AI Pastor to explain the theological significance of this chapter?',
         aiBtn: '✨ AI Guide',
         finishReading: 'Finish Reading & Take Quiz',
+        startQuiz: 'Start Quiz',
+        generatingContent: '✨ AI is generating insights...',
         recapQuiz: 'Recap Quiz',
-        quizDesc: '5 Questions to solidify your understanding.',
         submitReturn: 'Submit & Return Home',
+        apiKeyWarning: '⚠️ Please set your AI API Key (BYOK) in the Profile page first!',
+        guestProgressWarning: '⚠️ You are currently a guest user. Your quiz progress is only saved locally and will not sync to the cloud!',
+        apiGenerationFailed: '❌ AI generation failed. Please try again later.',
+        apiErrorPleaseCheckKey: '⚠️ Error occurred! Please check if your API Key is correct or has remaining quota.',
 
         // Profile
         yourProfile: 'Your Profile',
@@ -99,6 +111,8 @@ const translations: Translations = {
         savedLocally: 'Saved Locally!',
         getApiKey: 'Get OpenAI Key',
         getGeminiApiKey: 'Get Gemini Key',
+        aiModel: 'AI Model',
+        selectAiModel: 'Select AI Model',
     }
 };
 

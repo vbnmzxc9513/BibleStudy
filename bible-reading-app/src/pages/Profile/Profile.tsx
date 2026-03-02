@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { User as UserIcon, Key, ShieldCheck, Save } from 'lucide-react';
+import { User as UserIcon, Key, ShieldCheck, Save, Cpu } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { loginWithGoogle } from '../../firebase';
@@ -7,6 +7,7 @@ import './Profile.css';
 
 const Profile = () => {
     const [apiKey, setApiKey] = useState('');
+    const [aiModel, setAiModel] = useState('gemini-2.5-flash');
     const [isSaved, setIsSaved] = useState(false);
     const { t } = useLanguage();
     const { user, loading } = useAuth();
@@ -14,10 +15,14 @@ const Profile = () => {
     useEffect(() => {
         const savedKey = localStorage.getItem('ai_api_key');
         if (savedKey) setApiKey(savedKey);
+
+        const savedModel = localStorage.getItem('ai_model');
+        if (savedModel) setAiModel(savedModel);
     }, []);
 
     const handleSaveKey = () => {
         localStorage.setItem('ai_api_key', apiKey);
+        localStorage.setItem('ai_model', aiModel);
         setIsSaved(true);
         setTimeout(() => setIsSaved(false), 3000);
     };
@@ -93,6 +98,26 @@ const Profile = () => {
                                 placeholder="sk-..."
                                 className="text-input"
                             />
+                        </div>
+                    </div>
+
+                    <div className="input-group mt-4">
+                        <label htmlFor="aiModel">{t('aiModel')}</label>
+                        <div className="input-wrapper">
+                            <Cpu size={18} className="input-icon" />
+                            <select
+                                id="aiModel"
+                                value={aiModel}
+                                onChange={(e) => setAiModel(e.target.value)}
+                                className="text-input"
+                                style={{ appearance: 'none' }}
+                            >
+                                <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+                                <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+                                <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+                                <option value="gpt-4o-mini">GPT-4o Mini</option>
+                                <option value="gpt-4o">GPT-4o</option>
+                            </select>
                         </div>
                     </div>
 

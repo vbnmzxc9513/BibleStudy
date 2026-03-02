@@ -1,0 +1,206 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - img [ref=e7]
+        - heading "Bible Study" [level=1] [ref=e9]
+      - button "EN" [ref=e10] [cursor=pointer]:
+        - img [ref=e11]
+        - generic [ref=e15]: EN
+    - navigation [ref=e16]:
+      - link "首頁" [ref=e17] [cursor=pointer]:
+        - /url: /
+        - img [ref=e18]
+        - generic [ref=e21]: 首頁
+      - link "聖經" [ref=e22] [cursor=pointer]:
+        - /url: /books
+        - img [ref=e23]
+        - generic [ref=e25]: 聖經
+      - link "個人" [ref=e26] [cursor=pointer]:
+        - /url: /profile
+        - img [ref=e27]
+        - generic [ref=e30]: 個人
+    - button "AI 設定" [ref=e32] [cursor=pointer]:
+      - img [ref=e33]
+      - generic [ref=e36]: AI 設定
+  - main [ref=e37]:
+    - heading "Bible Study" [level=2] [ref=e39]
+    - generic [ref=e40]:
+      - generic [ref=e41]:
+        - heading "選擇書卷" [level=2] [ref=e42]
+        - generic [ref=e43]:
+          - img [ref=e44]
+          - textbox "搜尋書卷..." [ref=e47]
+      - generic [ref=e48]:
+        - button "舊約" [ref=e49] [cursor=pointer]
+        - button "新約" [ref=e50] [cursor=pointer]
+      - generic [ref=e51]:
+        - generic [ref=e52] [cursor=pointer]:
+          - generic [ref=e53]:
+            - generic [ref=e54]:
+              - img [ref=e55]
+              - generic [ref=e57]: 馬太福音
+            - img [ref=e58]
+          - generic [ref=e60]:
+            - button "1" [ref=e61]
+            - button "2" [ref=e62]
+            - button "3" [ref=e63]
+            - button "4" [ref=e64]
+            - button "5" [ref=e65]
+            - button "6" [ref=e66]
+            - button "7" [ref=e67]
+            - button "8" [ref=e68]
+            - button "9" [ref=e69]
+            - button "10" [ref=e70]
+            - button "11" [ref=e71]
+            - button "12" [ref=e72]
+            - button "13" [ref=e73]
+            - button "14" [ref=e74]
+            - button "15" [ref=e75]
+            - button "16" [ref=e76]
+            - button "17" [ref=e77]
+            - button "18" [ref=e78]
+            - button "19" [ref=e79]
+            - button "20" [ref=e80]
+            - button "21" [ref=e81]
+            - button "22" [ref=e82]
+            - button "23" [ref=e83]
+            - button "24" [ref=e84]
+            - button "25" [ref=e85]
+            - button "26" [ref=e86]
+            - button "27" [ref=e87]
+            - button "28" [ref=e88]
+        - generic [ref=e90] [cursor=pointer]:
+          - generic [ref=e91]:
+            - img [ref=e92]
+            - generic [ref=e94]: 馬可福音
+          - img [ref=e95]
+        - generic [ref=e98] [cursor=pointer]:
+          - generic [ref=e99]:
+            - img [ref=e100]
+            - generic [ref=e102]: 路加福音
+          - img [ref=e103]
+        - generic [ref=e106] [cursor=pointer]:
+          - generic [ref=e107]:
+            - img [ref=e108]
+            - generic [ref=e110]: 約翰福音
+          - img [ref=e111]
+        - generic [ref=e114] [cursor=pointer]:
+          - generic [ref=e115]:
+            - img [ref=e116]
+            - generic [ref=e118]: 使徒行傳
+          - img [ref=e119]
+        - generic [ref=e122] [cursor=pointer]:
+          - generic [ref=e123]:
+            - img [ref=e124]
+            - generic [ref=e126]: 羅馬書
+          - img [ref=e127]
+        - generic [ref=e130] [cursor=pointer]:
+          - generic [ref=e131]:
+            - img [ref=e132]
+            - generic [ref=e134]: 哥林多前書
+          - img [ref=e135]
+        - generic [ref=e138] [cursor=pointer]:
+          - generic [ref=e139]:
+            - img [ref=e140]
+            - generic [ref=e142]: 哥林多後書
+          - img [ref=e143]
+        - generic [ref=e146] [cursor=pointer]:
+          - generic [ref=e147]:
+            - img [ref=e148]
+            - generic [ref=e150]: 加拉太書
+          - img [ref=e151]
+        - generic [ref=e154] [cursor=pointer]:
+          - generic [ref=e155]:
+            - img [ref=e156]
+            - generic [ref=e158]: 以弗所書
+          - img [ref=e159]
+        - generic [ref=e162] [cursor=pointer]:
+          - generic [ref=e163]:
+            - img [ref=e164]
+            - generic [ref=e166]: 腓立比書
+          - img [ref=e167]
+        - generic [ref=e170] [cursor=pointer]:
+          - generic [ref=e171]:
+            - img [ref=e172]
+            - generic [ref=e174]: 歌羅西書
+          - img [ref=e175]
+        - generic [ref=e178] [cursor=pointer]:
+          - generic [ref=e179]:
+            - img [ref=e180]
+            - generic [ref=e182]: 帖撒羅尼迦前書
+          - img [ref=e183]
+        - generic [ref=e186] [cursor=pointer]:
+          - generic [ref=e187]:
+            - img [ref=e188]
+            - generic [ref=e190]: 帖撒羅尼迦後書
+          - img [ref=e191]
+        - generic [ref=e194] [cursor=pointer]:
+          - generic [ref=e195]:
+            - img [ref=e196]
+            - generic [ref=e198]: 提摩太前書
+          - img [ref=e199]
+        - generic [ref=e202] [cursor=pointer]:
+          - generic [ref=e203]:
+            - img [ref=e204]
+            - generic [ref=e206]: 提摩太後書
+          - img [ref=e207]
+        - generic [ref=e210] [cursor=pointer]:
+          - generic [ref=e211]:
+            - img [ref=e212]
+            - generic [ref=e214]: 提多書
+          - img [ref=e215]
+        - generic [ref=e218] [cursor=pointer]:
+          - generic [ref=e219]:
+            - img [ref=e220]
+            - generic [ref=e222]: 腓利門書
+          - img [ref=e223]
+        - generic [ref=e226] [cursor=pointer]:
+          - generic [ref=e227]:
+            - img [ref=e228]
+            - generic [ref=e230]: 希伯來書
+          - img [ref=e231]
+        - generic [ref=e234] [cursor=pointer]:
+          - generic [ref=e235]:
+            - img [ref=e236]
+            - generic [ref=e238]: 雅各書
+          - img [ref=e239]
+        - generic [ref=e242] [cursor=pointer]:
+          - generic [ref=e243]:
+            - img [ref=e244]
+            - generic [ref=e246]: 彼得前書
+          - img [ref=e247]
+        - generic [ref=e250] [cursor=pointer]:
+          - generic [ref=e251]:
+            - img [ref=e252]
+            - generic [ref=e254]: 彼得後書
+          - img [ref=e255]
+        - generic [ref=e258] [cursor=pointer]:
+          - generic [ref=e259]:
+            - img [ref=e260]
+            - generic [ref=e262]: 約翰一書
+          - img [ref=e263]
+        - generic [ref=e266] [cursor=pointer]:
+          - generic [ref=e267]:
+            - img [ref=e268]
+            - generic [ref=e270]: 約翰二書
+          - img [ref=e271]
+        - generic [ref=e274] [cursor=pointer]:
+          - generic [ref=e275]:
+            - img [ref=e276]
+            - generic [ref=e278]: 約翰三書
+          - img [ref=e279]
+        - generic [ref=e282] [cursor=pointer]:
+          - generic [ref=e283]:
+            - img [ref=e284]
+            - generic [ref=e286]: 猶大書
+          - img [ref=e287]
+        - generic [ref=e290] [cursor=pointer]:
+          - generic [ref=e291]:
+            - img [ref=e292]
+            - generic [ref=e294]: 啟示錄
+          - img [ref=e295]
+```

@@ -2,17 +2,18 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
-import { Sparkles, ArrowLeft, Loader2, CheckCircle, MessageCircle, ChevronLeft, ChevronRight, XCircle } from 'lucide-react';
+import { Sparkles, ArrowLeft, Loader2, CheckCircle, MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { bibleBooks } from '../../constants/bibleBooks';
 import { db } from '../../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { saveUserProgress } from '../../services/progressService';
-import { generateQuizFromAI } from '../../services/aiService';
+import { generateQuizFromAI, generateDeepDiveFromAI } from '../../services/aiService';
 import type { QuizResult } from '../../services/aiService';
 import './ReadingView.css';
 
 interface Verse {
-    number: number;
+    number?: number;
+    verse?: number;
     text: string;
 }
 
@@ -34,11 +35,17 @@ const ReadingView = () => {
     const [verses, setVerses] = useState<Verse[]>([]);
     const [isLoadingData, setIsLoadingData] = useState(true);
 
+    const [showDeepDive, setShowDeepDive] = useState(false);
+    const [deepDiveText, setDeepDiveText] = useState<string | null>(null);
+    const [isGeneratingDeepDive, setIsGeneratingDeepDive] = useState(false);
+
     const [showQuiz, setShowQuiz] = useState(false);
     const [isGenerating, setIsGenerating] = useState(false);
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
     const [quizCompleted, setQuizCompleted] = useState(false);
-    const [quizData, setQuizData] = useState<QuizResult | null>(null);
+    const [quizData, setQuizData] = useState<QuizResult[] | null>(null);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [score, setScore] = useState(0);
 
     // Fetch actual data from Firestore
     useEffect(() => {
@@ -66,52 +73,84 @@ const ReadingView = () => {
         fetchChapterData();
     }, [safeBookId, safeChapter]);
 
-    const mockQuizZh = {
-        question: "1. 根據這段經文，以下哪一個描述最符合其核心神學意涵？",
-        options: ["(錯誤示範) 這代表我們不應該依靠神，因為神很忙。", "(正確解答) 展現了神對人類無限的恩典與信實的應許。"],
-        explanation: "答錯了。解析：這段經文的上下文強調的是神主動介入人類歷史，而不是說神過於忙碌。請重新選擇！",
-        aiFeedback: "太棒了！您完全掌握了這段經文的重點。神的話語總是信實的。感謝您的用心閱讀，這個章節的閱讀進度已為您同步儲存！打卡成功！"
-    };
+    const mockDeepDiveZh = "這段經文充滿了許多深刻的屬靈意義。它提醒我們，神的話語不僅是歷史的紀錄，更是要在我們現在的生活中產生功效的...";
+    const mockDeepDiveEn = "This passage is full of profound spiritual meaning. It reminds us that God's word is not just a historical record, but meant to be active and alive in our lives today...";
 
-    const mockQuizEn = {
-        question: "1. Based on this passage, which description best fits the core theological meaning?",
-        options: ["(Wrong Demo) It means we shouldn't rely on God because He is busy.", "(Correct Answer) It shows God's infinite grace and faithful promises to humanity."],
-        explanation: "Incorrect. Analysis: The context emphasizes God's active intervention in human history, not that He is too busy. Please try again!",
-        aiFeedback: "Excellent work! You've grasped the core message. God's word is always faithful. Your reading progress for this chapter has now been synchronized and saved! Check-in successful!"
-    };
+    const currentDeepDiveText = deepDiveText || (language === 'zh_TW' ? mockDeepDiveZh : mockDeepDiveEn);
 
-    const currentQuiz = quizData || (language === 'zh_TW' ? mockQuizZh : mockQuizEn) as any;
-
-    const handleGenerateQuiz = async () => {
-        setIsGenerating(true);
+    const handleGenerateDeepDive = async () => {
+        setIsGeneratingDeepDive(true);
         const apiKey = localStorage.getItem('ai_api_key');
 
         if (!apiKey) {
-            alert(language === 'zh_TW' ? '請先至個人頁面設定 AI API Key (BYOK)！' : 'Please set your AI API Key (BYOK) in the Profile page first!');
-            setIsGenerating(false);
+            alert(t('apiKeyWarning'));
+            setIsGeneratingDeepDive(false);
             return;
         }
 
-        const versesText = verses.map(v => `${v.number} ${v.text}`).join('\n');
-        const generated = await generateQuizFromAI(versesText, language, apiKey);
+        const versesText = verses.map(v => `${v.number || v.verse} ${v.text}`).join('\n');
+        const generated = await generateDeepDiveFromAI(versesText, language, apiKey);
 
         if (generated) {
-            setQuizData(generated);
-            setShowQuiz(true);
+            setDeepDiveText(generated);
+            setShowDeepDive(true);
         } else {
-            alert(language === 'zh_TW' ? 'AI 題目生成失敗，請檢查 API Key 或網路連線。' : 'AI Generation failed. Please check your API Key or network.');
         }
-        setIsGenerating(false);
     };
 
-    const handleSubmitQuiz = async () => {
-        // If correctIndex is missing due to AI glitch, fallback to 1
-        const correctIdx = currentQuiz.correctIndex !== undefined ? currentQuiz.correctIndex : 1;
+    const handleGenerateQuiz = async () => {
+        const apiKey = localStorage.getItem('ai_api_key');
+        if (!apiKey) {
+            alert(t('apiKeyWarning'));
+            return;
+        }
 
-        if (selectedOption === correctIdx) {
+        setIsGenerating(true);
+        setShowQuiz(true);
+        const combinedText = verses.map(v => `${v.number || v.verse}: ${v.text}`).join('\n');
+
+        try {
+            const quiz = await generateQuizFromAI(combinedText, language, apiKey);
+            if (quiz && Array.isArray(quiz) && quiz.length > 0) {
+                setQuizData(quiz);
+                setCurrentQuestionIndex(0);
+                setScore(0);
+                setQuizCompleted(false);
+                setSelectedOption(null);
+            } else {
+                setShowQuiz(false);
+                alert(t('apiErrorPleaseCheckKey'));
+            }
+        } catch (error) {
+            setShowQuiz(false);
+            alert(t('apiErrorPleaseCheckKey'));
+        } finally {
+            setIsGenerating(false);
+        }
+    };
+
+
+    const handleSubmitQuiz = async () => {
+        if (selectedOption === null || !quizData || quizData.length === 0) return;
+
+        const currentQ = quizData[currentQuestionIndex];
+        const isCorrect = selectedOption === currentQ.correctIndex;
+
+        if (isCorrect) {
+            setScore(prev => prev + 1);
+        }
+
+        // Always proceed to next after submitting (whether right or wrong) if there are more questions
+        if (currentQuestionIndex < quizData.length - 1) {
+            setCurrentQuestionIndex(prev => prev + 1);
+            setSelectedOption(null); // Reset option for next question
+        } else {
+            // Reached the end
             setQuizCompleted(true);
             if (user) {
                 await saveUserProgress(user.uid, safeBookId, safeChapter);
+            } else {
+                alert(t('guestProgressWarning'));
             }
         }
     };
@@ -136,7 +175,7 @@ const ReadingView = () => {
                 ) : verses.length > 0 ? (
                     verses.map((verse, index) => (
                         <div key={index} className="verse-row">
-                            <span className="verse-number">{verse.number}</span>
+                            <span className="verse-number">{verse.number || verse.verse}</span>
                             <p className="verse-text">{verse.text}</p>
                         </div>
                     ))
@@ -156,41 +195,72 @@ const ReadingView = () => {
                 </div>
                 <p className="mb-4">{t('aiPrompt')}</p>
                 <div className="quiz-trigger-section">
-                    {!showQuiz ? (
-                        <div className="flex flex-col gap-3">
-                            <div className="text-sm px-3 py-2 bg-brand-color/10 text-brand-color rounded-md border border-brand-color/20 text-center font-medium">
-                                💡 {language === 'zh_TW' ? '讀完這章了嗎？完成下方的 AI 測驗來為今天的進度打卡！' : 'Finished reading? Complete the AI quiz below to save your daily progress!'}
+                    <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                        <button
+                            className="btn flex-1 quiz-btn"
+                            onClick={handleGenerateDeepDive}
+                            disabled={isGeneratingDeepDive || verses.length === 0}
+                            style={{
+                                background: isGeneratingDeepDive || verses.length === 0 ? 'var(--bg-tertiary)' : 'linear-gradient(135deg, var(--accent-primary), var(--brand-color))',
+                                color: isGeneratingDeepDive || verses.length === 0 ? 'var(--text-muted)' : 'white',
+                                border: 'none',
+                                opacity: verses.length === 0 ? 0.5 : 1
+                            }}
+                        >
+                            {isGeneratingDeepDive ? <Loader2 size={20} className="animate-spin" /> : <Sparkles size={20} />}
+                            <span>{isGeneratingDeepDive ? t('generatingContent') : t('deepenUnderstanding')}</span>
+                        </button>
+
+                        <button
+                            className="btn flex-1 quiz-btn"
+                            onClick={handleGenerateQuiz}
+                            disabled={isGenerating || verses.length === 0}
+                            style={{
+                                background: isGenerating || verses.length === 0 ? 'var(--bg-tertiary)' : 'var(--bg-primary)',
+                                color: isGenerating || verses.length === 0 ? 'var(--text-muted)' : 'var(--brand-color)',
+                                border: '2px solid var(--brand-color)',
+                                opacity: verses.length === 0 ? 0.5 : 1
+                            }}
+                        >
+                            {isGenerating ? <Loader2 size={20} className="animate-spin" /> : <CheckCircle size={20} />}
+                            <span>{isGenerating ? (language === 'zh_TW' ? '產生中...' : 'Generating...') : t('startQuiz')}</span>
+                        </button>
+                    </div>
+
+                    {showDeepDive && (
+                        <div className="deep-dive-modal bg-bg-secondary p-5 rounded-xl border border-glass-border animate-fade-in-up mt-4">
+                            <div className="flex items-center gap-2 mb-3 text-brand-color">
+                                <Sparkles size={20} />
+                                <h4 className="text-lg font-semibold">{t('deepenUnderstanding')}</h4>
                             </div>
-                            <button
-                                className="btn w-full quiz-btn"
-                                onClick={handleGenerateQuiz}
-                                disabled={isGenerating || verses.length === 0}
-                                style={{
-                                    background: isGenerating || verses.length === 0 ? 'var(--bg-tertiary)' : 'linear-gradient(135deg, var(--accent-primary), var(--brand-color))',
-                                    color: isGenerating || verses.length === 0 ? 'var(--text-muted)' : 'white',
-                                    border: 'none',
-                                    opacity: verses.length === 0 ? 0.5 : 1
-                                }}
-                            >
-                                {isGenerating ? <Loader2 size={20} className="animate-spin" /> : <Sparkles size={20} />}
-                                <span>{isGenerating ? (language === 'zh_TW' ? '✨ AI 正在為您產生題目...' : '✨ AI is generating questions...') : t('finishReading')}</span>
-                            </button>
+                            <div className="ai-feedback-box p-4 bg-white/50 dark:bg-black/20 rounded-lg border border-brand-color/30 text-text-secondary leading-relaxed text-sm whitespace-pre-wrap">
+                                {currentDeepDiveText}
+                            </div>
                         </div>
-                    ) : (
+                    )}
+
+                    {showQuiz && quizData && quizData.length > 0 && (
                         <div className="quiz-modal bg-bg-secondary p-5 rounded-xl border border-glass-border animate-fade-in-up mt-4">
-                            <h4 className="text-lg font-semibold mb-2">{t('chapterStr', { num: chapter || 1 })} {t('recapQuiz')}</h4>
+                            <div className="flex justify-between items-center mb-2">
+                                <h4 className="text-lg font-semibold">{t('chapterStr', { num: chapter || 1 })} {t('recapQuiz')}</h4>
+                                {!quizCompleted && (
+                                    <span className="text-sm font-medium text-brand-color bg-brand-color/10 px-2 py-1 rounded">
+                                        {currentQuestionIndex + 1} / {quizData.length}
+                                    </span>
+                                )}
+                            </div>
+
                             {!quizCompleted ? (
                                 <>
-                                    <p className="text-text-secondary text-sm mb-4">{t('quizDesc')}</p>
                                     <div className="quiz-question">
-                                        <p className="question-text font-medium text-text-primary mb-3">{currentQuiz.question}</p>
+                                        <p className="question-text font-medium text-text-primary mb-3">{quizData[currentQuestionIndex].question}</p>
                                         <div className="options mt-3 flex flex-col gap-2">
-                                            {currentQuiz.options.map((opt: string, idx: number) => (
+                                            {quizData[currentQuestionIndex].options.map((opt: string, idx: number) => (
                                                 <button
                                                     key={idx}
                                                     className={`w-full text-left p-3 rounded-md border transition-all duration-200 
                                                         ${selectedOption === idx
-                                                            ? (idx === 0 ? 'bg-red-50 border-red-400 text-red-700' : 'bg-green-50 border-green-500 text-green-700')
+                                                            ? 'bg-brand-color/10 border-brand-color text-brand-color'
                                                             : 'bg-bg-primary border-border-color hover:border-brand-color'}`}
                                                     onClick={() => setSelectedOption(idx)}
                                                 >
@@ -200,34 +270,32 @@ const ReadingView = () => {
                                         </div>
                                     </div>
 
-                                    {selectedOption === 0 && (
-                                        <div className="mt-4 p-3 bg-red-50/80 border border-red-200 rounded-md flex gap-2 items-start text-red-600 text-sm animate-fade-in-up">
-                                            <XCircle size={18} className="shrink-0 mt-0.5" />
-                                            <span>{currentQuiz.explanation}</span>
-                                        </div>
-                                    )}
-
                                     <button
                                         className="btn btn-primary w-full mt-5 font-bold tracking-wide"
                                         onClick={handleSubmitQuiz}
-                                        disabled={selectedOption !== (currentQuiz.correctIndex !== undefined ? currentQuiz.correctIndex : 1)}
-                                        style={{ opacity: selectedOption !== (currentQuiz.correctIndex !== undefined ? currentQuiz.correctIndex : 1) ? 0.5 : 1 }}
+                                        disabled={selectedOption === null}
+                                        style={{ opacity: selectedOption === null ? 0.5 : 1 }}
                                     >
-                                        {language === 'zh_TW' ? '送出並打卡' : 'Submit & Save Progress'}
+                                        {currentQuestionIndex < quizData.length - 1
+                                            ? (language === 'zh_TW' ? '下一題' : 'Next Question')
+                                            : (language === 'zh_TW' ? '送出並打卡' : 'Submit & Save Progress')}
                                     </button>
                                 </>
                             ) : (
                                 <div className="quiz-feedback-section delay-100 animate-fade-in-up">
                                     <div className="flex items-center gap-2 mb-3 text-brand-color font-medium text-lg">
                                         <CheckCircle size={26} />
-                                        <span>{language === 'zh_TW' ? '✅ 打卡成功！' : '✅ Progress Saved!'}</span>
+                                        <span>{language === 'zh_TW' ? '✅ 測驗完成與打卡成功！' : '✅ Quiz Completed & Progress Saved!'}</span>
+                                    </div>
+                                    <div className="text-center my-4 font-semibold text-text-primary">
+                                        {language === 'zh_TW' ? `您的總得分：${score} / ${quizData.length}` : `Your Score: ${score} / ${quizData.length}`}
                                     </div>
                                     <div className="ai-feedback-box p-4 bg-white/50 dark:bg-black/20 rounded-lg mb-4 border border-brand-color/30">
                                         <div className="flex items-center gap-2 mb-2 text-brand-color">
                                             <MessageCircle size={20} />
-                                            <span className="font-semibold">{language === 'zh_TW' ? '✨ AI 解析：' : '✨ AI Feedback:'}</span>
+                                            <span className="font-semibold">{language === 'zh_TW' ? '✨ AI 總結回饋：' : '✨ AI Feedback:'}</span>
                                         </div>
-                                        <p className="text-text-secondary leading-relaxed text-sm">{currentQuiz.aiFeedback}</p>
+                                        <p className="text-text-secondary leading-relaxed text-sm">{quizData[currentQuestionIndex].aiFeedback}</p>
                                     </div>
                                     <button className="btn btn-primary w-full mt-4" onClick={() => navigate('/')}>
                                         {t('submitReturn')}

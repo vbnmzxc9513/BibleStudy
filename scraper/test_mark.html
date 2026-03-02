@@ -1,0 +1,1288 @@
+ 
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="zh-tw" ng-app>
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+<title>
+台灣聖經網行動版</title>
+    <meta content="這是一個基督教的社群網站，包含個人化讀經、靈修、聖經知識、全網查經、禱告廣場、見證、金句、詩歌、聖經部落格、社群、基督教新聞、活動、聖經遊戲、軟體下載、信徒線上工具等等..." name="description">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="台灣聖經網">
+    <meta property="og:title" content="null">
+    <meta property="og:description" content="台灣聖經網 - 分享神的話語">
+    <meta property="og:image" content="https://www.taiwanbible.com/img/logo.png">
+    <meta property="og:url" content="http://taiwanbible.com/m/bible/readChapter.jsp">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="null">
+    <meta name="twitter:description" content="台灣聖經網 - 分享神的話語">
+    <meta name="twitter:image" content="https://www.taiwanbible.com/img/logo.png">
+    <meta content="" name="keywords">
+    <meta content="台灣聖經網：lancetw aka Hsin-lin Cheng, 2014" name="author">
+    <meta content="True" name="HandheldFriendly">
+    <meta content="320" name="MobileOptimized">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" name="viewport">
+    <meta content="on" http-equiv="cleartype">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="台灣聖經網" name="apple-mobile-web-app-title">
+    <link href="/m/img/touch/AppIcon72x72@2x~ipad.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+    <link href="/m/img/touch/AppIcon72x72@2x~ipad.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+    <link href="/m/img/touch/AppIcon72x72@2x~ipad.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+    <link href="/m/img/touch/AppIcon72x72@2x~ipad.png" rel="shortcut icon">
+    <link href="/m/img/touch/AppIcon72x72@2x~ipad.png" rel="apple-touch-icon-precomposed">
+    <link href="/m/img/touch/AppIcon72x72@2x~ipad.png" rel="shortcut icon">
+    <meta content="/m/img/touch/AppIcon72x72@2x~ipad.png" name="msapplication-TileImage">
+    <link href="https://www.taiwanbible.com/" rel="canonical">
+    <link href="/m/css/screen.css" media="screen" rel="stylesheet">
+    <!-- %link(rel="stylesheet" media="screen" href="/m/libs/cubiq-add-to-homescreen/style/add2home.css") -->
+    <!-- script src="/m/libs/modernizr/modernizr.js"></script>
+    <!-- %script(src="/m/libs/cubiq-add-to-homescreen/src/add2home.min.js") -->
+    
+    <meta http-equiv="Pragma" content="no-cache"> 
+		<meta http-equiv="Cache-Control" content="no-cache"> 
+		<meta http-equiv="Expires" content="0"> 
+
+  </head>
+  
+  
+  
+  
+  
+  <body class="scrollToContent">
+  
+    <!--[if lt IE 8]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
+    <div class="page" id="wrapper">
+      <div class="bible" id="container">
+        <div class="toogle left">
+          <a class="btn btn-default fa fa-bars" href="#left"></a>
+        </div>
+        <div class="toogle right">
+          <a class="btn btn-default fa fa-plus-square" href="#right"></a>
+        </div>
+        <header class="jumbotron">
+          <div class="twb-header">
+            <div class="twb-title">
+              <a href="/m/">
+                <img src="/m/img/logo/twbible.png" />
+              </a>
+              <div class="twb-http">TaiwanBible.com</div>
+            </div>
+            <h1>台灣聖經網</h1>
+            
+            <div class="twb-donate">
+              <a class="btn btn-primary btn-lg" href="/m/offer.jsp">參與奉獻</a>
+            </div>
+          </div>
+          
+          
+          <form id="search" role="search" method="POST" action="/m/search.jsp" >
+            <input name="area" type="hidden" value="bible">
+            <div class="input-group input-group input-group-lg">
+              
+              
+              
+              <input class="input form-control" data-area="bible" placeholder="聖經搜尋" type="input"  name="keyword">
+              <span class="input-group-btn">
+                <button class="btn btn-warning" type="submit">搜尋</button>
+                <button class="btn btn-warning dropdown-toggle" data-toggle="dropdown" type="button">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" lang="en" role="menu">
+                  
+                  
+                   
+                   
+                   
+                                           
+                  
+                  
+                   
+                  <li>
+                     <a data-area="bible" >聖經</a>
+                  </li>                  
+                   
+                  <li>
+                     <a data-area="topic" >辭典</a>
+                  </li>                  
+                   
+                  <li>
+                     <a data-area="lyrics" >詩歌</a>
+                  </li>                  
+                   
+                  <li>
+                     <a data-area="news" >新聞</a>
+                  </li>                  
+                   
+                  <li>
+                     <a data-area="english" >英文</a>
+                  </li>                  
+                   
+                  <li>
+                     <a data-area="video" >影片</a>
+                  </li>                  
+                   
+                  <li>
+                     <a data-area="wiki" >知識</a>
+                  </li>                  
+                   
+                  <li>
+                     <a data-area="friend" >網友</a>
+                  </li>                  
+                  
+                  
+                </ul>
+              </span>
+            </div>
+            
+          </form>
+        </header>
+        <aside class="left" name="left">
+      
+         
+
+  	
+          
+          <div id="twb-nav">
+            <ul class="nav nav-pills nav-stacked first">
+              <li>
+                <a href="/m/index.jsp">首頁</a>
+              </li>
+              
+              
+              
+              <h2>靈修</h2>
+              
+              
+               
+              
+              <li>
+                <a href="/m/bible/bs.jsp">聖經閱讀</a>
+              </li>
+              
+              <li>
+                <a href="/m/bibleenglish/englishbible.jsp"><img src="/web/imgs/new_4.png" width="28" height="9" align="absmiddle"/>NIV</a>
+              </li>
+              
+              <li>
+                <a href="/m/bible/my.jsp"> <img src="/web/imgs/icon1.png" width="16" height="16" align="absmiddle"/><span style="color: red;">靈修</span></a>
+              </li>
+              <li>
+                <a href="/m/diary/list.jsp">日記</a>
+              </li>
+              <li>
+                <a href="/m/bible/daily.jsp">每日閱讀</a>
+              </li>
+              
+              <li>
+                <a href="/m/bible/dailyverse.jsp">本日金句</a>
+              </li>
+              
+              <li>
+                <a target="_BLANK" href="https://www.taiwanbible.com/web/exam/list.jsp"><span style="color: green;">聖經檢定</span></a>
+              </li>
+              
+              
+              
+              
+              
+              <li>
+                <a href="/m/bible/bibleVerseTool.jsp"><img src="/web/imgs/icon3.fw.png" width="16" height="16" align="absmiddle"/>工具箱</a>
+              </li>
+              
+              <h2>資訊</h2>
+              <li>
+                <a target="_BLANK" href="https://biblesearch.com.tw/topic/index.jsp?PC=1">主題經文</a>
+              </li>
+              
+              
+              <li>
+                <a href="/m/news/first.jsp"> <img src="/web/imgs/icon2.fw.png" width="16" height="16" align="absmiddle"/><span style="color: red;">新聞</span></a>
+              </li>
+              <li>
+                <a target="_BLANK" href="https://event.oursweb.net/">活動</a>
+              </li>
+              <li>
+                <a href="/m/lyrics/index.jsp">詩歌</a>
+              </li>
+              <li>
+                <a href="http://church.oursweb.net/lite/" target="_BLANK">教會</a>
+              </li>
+              <li>
+                <a href="/m/bibleenglish/index.jsp">英文</a>
+              </li>
+              <li>
+                <a href="https://www.taiwanbible.com/web/line/"  target="_blank" ><img src="/web/imgs/line.png" width="16" height="16" align="absmiddle"/>貼圖</a>
+              </li>
+              <li>
+                <a href="/m/main/video.jsp">影片</a>
+              </li>
+              
+                           
+              <h2>聖經網</h2>
+              <li>
+                <a href="https://www.taiwanbible.com/point/" target="_BLANK">靈糧點數中心</a>
+              </li>
+              <li>
+                <a href="/m/contact.jsp">聯絡我們</a>
+              </li>
+               <li>
+                <a href="/m/offer.jsp"> <span style="color: green;">奉獻資訊</span></a>
+              </li>
+            </ul>
+            <ul class="nav nav-pills nav-stacked second">
+              <h2>社群</h2>
+              <li>
+                <a href="/m/main/mypage.jsp">聊天</a>
+              </li>
+              
+              <li>
+                <a href="/m/main/blog.jsp">部落格</a>
+              </li>
+              <li>
+                <a href="/m/pray/sheep.jsp">不能少</a>
+              </li>
+           <li>
+                <a href="/m/pray/praytonight.jsp">禱告時刻</a>
+              </li>
+              
+              
+              
+              <li>
+                <a href="/m/main/friend.jsp">好友</a>
+              </li>
+              <h2>知識</h2>
+              <li>
+                <a href="/m/wiki/first.jsp"> <span style="color: red;">知識庫</span><img src="/web/imgs/icon4.fw.png" width="16" height="16" align="absmiddle"/></a>
+              </li>
+              <li>
+                <a href="/m/word/topic.jsp">主題辭典</a>
+              </li>
+              
+              <h2>分享</h2>
+               <li>
+                <a href="/m/startpage/sermon.jsp"> <span style="color: red;">找講道?</span></a>
+              </li>
+              <li>
+                <a href="/m/pray/view.jsp">禱告廣場</a>
+              </li>
+              <li>
+                <a href="/m/pray/prayForChurch.jsp"><img src="/web/images/church.png" border=0>為教會</a>
+              </li>
+              <li>
+                <a href="/m/pray/children.jsp">為孩子</a>
+              </li>
+             
+              <li>
+                <a href="/m/gospel/testimony.jsp"><img src=/web/imgs/cross.gif border=0>得救見證</a>
+              </li>
+              <li>
+                <a href="http://tool.ccnda.net/line/" target="_BLANK">LINE</a>
+              </li>
+              
+              
+              
+              <h2>遊戲</h2>
+               
+               <li>
+                <a target="_BLANK" href="http://tool.ccnda.net/mem/">背經工具</a>
+              </li>
+              <li>
+                <a href="/m/bible/bookGame.jsp">聖經書櫃</a>
+              </li>
+              <li>
+                <a href="/m/quiz/today.jsp">經頭腦</a>
+              </li>
+               <li>
+                <a href="/m/games/index.jsp">小遊戲</a>
+              </li>
+              
+            </ul>
+          </div>  	
+      
+        </aside>
+
+
+
+
+<main>
+
+   
+
+                    		
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+<div id="bible-read">
+	
+
+
+	
+            <aricle>
+              <div class="content paper paper-white paper-curl">
+
+
+              	
+<div class="btn btn-default">									    											    
+  <a href="readChapter.jsp?Book=MAK&Chapter=1&Version=UNV">和合本</a>
+</div>
+<div class="btn btn-default">									    											    
+  <a href="readChapter.jsp?Book=MAK&Chapter=1&Version=CCB">當代譯本</a>
+</div>
+<div class="btn btn-default">									    											    
+  <a href="readChapter.jsp?Book=MAK&Chapter=1&Version=NCV">新譯本</a>
+</div>
+<div class="btn btn-default">									    											    
+  <a href="readChapter.jsp?Book=MAK&Chapter=1&Version=CNLT">現代中文譯本</a>
+</div>
+<div class="btn btn-default">									    											    
+  <a href="readChapter.jsp?Book=MAK&Chapter=1&Version=CNET">CNET中譯本</a>
+</div>
+
+
+<div class="btn btn-default">									    											    
+  <a href="readChapter.jsp?Book=MAK&Chapter=1&Version=CCV">新漢語譯本</a>
+</div>
+<div class="btn btn-default">									    											    
+  <a href="readChapter.jsp?Book=MAK&Chapter=1&Version=JM">簡明聖經</a>
+</div>
+
+  
+
+<div class="btn btn-default">									    											    
+  <a href="readChapter.jsp?Book=MAK&Chapter=1&Version=NIV">NIV</a>
+</div>
+
+             	
+              	
+                <h3>
+                  <br>馬可福音 (和合本)
+                </h3>
+                <h4>
+                  第 1 章
+                </h4>
+                <p>
+                	
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=1&action=submit">01</a>   神的兒子，耶穌基督福音的起頭。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=2&action=submit">02</a>   正如先知以賽亞（有古卷沒有以賽亞三個字）書上記著說：看哪，我要差遣我的使者在你前面，預備道路。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=3&action=submit">03</a>   在曠野有人聲喊著說：預備主的道，修直他的路。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=4&action=submit">04</a>   照這話，約翰來了，在曠野施洗，傳悔改的洗禮，使罪得赦。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=5&action=submit">05</a>   猶太全地和耶路撒冷的人都出去到約翰那裡，承認他們的罪，在約但河裡受他的洗。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=6&action=submit">06</a>   約翰穿駱駝毛的衣服，腰束皮帶，吃的是蝗蟲、野蜜。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=7&action=submit">07</a>   他傳道說：「有一位在我以後來的，能力比我更大，我就是彎腰給他解鞋帶也是不配的。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=8&action=submit">08</a>   我是用水給你們施洗，他卻要用聖靈給你們施洗。」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=9&action=submit">09</a>   那時，耶穌從加利利的拿撒勒來，在約但河裡受了約翰的洗。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=10&action=submit">10</a>   他從水裡一上來，就看見天裂開了，聖靈彷彿鴿子，降在他身上。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=11&action=submit">11</a>   又有聲音從天上來，說：「你是我的愛子，我喜悅你。」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=12&action=submit">12</a>   聖靈就把耶穌催到曠野裡去。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=13&action=submit">13</a>   他在曠野四十天，受撒但的試探，並與野獸同在一處，且有天使來伺候他。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=14&action=submit">14</a>   約翰下監以後，耶穌來到加利利，宣傳神的福音，                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=15&action=submit">15</a>   說：「日期滿了，神的國近了。你們當悔改，信福音！」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=16&action=submit">16</a>   耶穌順著加利利的海邊走，看見西門和西門的兄弟安得烈在海邊撒網；他們本是打魚的。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=17&action=submit">17</a>   耶穌對他們說：「來跟從我，我要叫你們得人如得魚一樣。」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=18&action=submit">18</a>   他們就立刻捨了網，跟從了他。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=19&action=submit">19</a>   耶穌稍往前走，又見西庇太的兒子雅各和雅各的兄弟約翰在船上補網。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=20&action=submit">20</a>   耶穌隨即招呼他們，他們就把父親西庇太和雇工人留在船上，跟從耶穌去了。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=21&action=submit">21</a>   到了迦百農，耶穌就在安息日進了會堂教訓人。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=22&action=submit">22</a>   眾人很希奇他的教訓；因為他教訓他們，正像有權柄的人，不像文士。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=23&action=submit">23</a>   在會堂裡，有一個人被污鬼附著。他喊叫說：                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=24&action=submit">24</a>   「拿撒勒人耶穌，我們與你有什麼相干？你來滅我們嗎？我知道你是誰，乃是神的聖者。」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=25&action=submit">25</a>   耶穌責備他說：「不要作聲！從這人身上出來吧。」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=26&action=submit">26</a>   污鬼叫那人抽了一陣瘋，大聲喊叫，就出來了。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=27&action=submit">27</a>   眾人都驚訝，以致彼此對問說：「這是什麼事？是個新道理啊！他用權柄吩咐污鬼，連污鬼也聽從了他。」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=28&action=submit">28</a>   耶穌的名聲就傳遍了加利利的四方。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=29&action=submit">29</a>   他們一出會堂，就同著雅各、約翰，進了西門和安得烈的家。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=30&action=submit">30</a>   西門的岳母正害熱病躺著，就有人告訴耶穌。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=31&action=submit">31</a>   耶穌進前拉著他的手，扶他起來，熱就退了，他就服事他們。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=32&action=submit">32</a>   天晚日落的時候，有人帶著一切害病的，和被鬼附的，來到耶穌跟前。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=33&action=submit">33</a>   合城的人都聚集在門前。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=34&action=submit">34</a>   耶穌治好了許多害各樣病的人，又趕出許多鬼，不許鬼說話，因為鬼認識他。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=35&action=submit">35</a>   次日早晨，天未亮的時候，耶穌起來，到曠野地方去，在那裡禱告。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=36&action=submit">36</a>   西門和同伴追了他去，                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=37&action=submit">37</a>   遇見了就對他說：「眾人都找你。」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=38&action=submit">38</a>   耶穌對他們說：「我們可以往別處去，到鄰近的鄉村，我也好在那裡傳道，因為我是為這事出來的。」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=39&action=submit">39</a>   於是在加利利全地，進了會堂，傳道，趕鬼。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=40&action=submit">40</a>   有一個長大痲瘋的來求耶穌，向他跪下，說：「你若肯，必能叫我潔淨了。」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=41&action=submit">41</a>   耶穌動了慈心，就伸手摸他，說：「我肯，你潔淨了吧！」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=42&action=submit">42</a>   大痲瘋即時離開他，他就潔淨了。                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=43&action=submit">43</a>   耶穌嚴嚴的囑咐他，就打發他走，                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=44&action=submit">44</a>   對他說：「你要謹慎，什麼話都不可告訴人，只要去把身體給祭司察看，又因為你潔淨了，獻上摩西所吩咐的禮物，對眾人作證據。」                  
+                  
+                  <a href="bibleVerseTool.jsp?Book=41&Chapter=1&Verse=45&action=submit">45</a>   那人出去，倒說許多的話，把這件事傳揚開了，叫耶穌以後不得再明明的進城，只好在外邊曠野地方。人從各處都就了他來。                  
+                  
+                </p>
+              </div>
+            </aricle>
+          </div>
+    
+  
+
+
+       
+       
+       <a target="_BLANK" href="https://www.taiwanbible.com/web/exam/">
+         	<img class="img-responsive" src="https://www.taiwanbible.com/web/exam/BANNER/750x250.jpg">
+         </a>	
+          
+</main>
+
+
+
+<aside class="right" name="right">
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+
+        <div class="spirit-today">
+            <div class="paper paper-white">
+              <h3 class="text-center">聖經閱讀</h3>
+              <hr>
+              <div class="text-center">
+                <div class="btn-group-vertical">
+                  <a class="btn btn-lg btn-info" href="/m/bible/myfav.jsp">我的最愛</a>
+                  <a class="btn btn-lg btn-info" href="/m/bible/dailyverse.jsp">本日金句</a>
+                  <a class="btn btn-lg btn-info" href="/m/bible/readChapter.jsp?Daily=1">每日一章</a>
+                  <a class="btn btn-lg btn-info" href="/m/bible/calculator.jsp">聖經計算機</a>
+                  <a class="btn btn-lg btn-info" href="/m/bible/bibleVerseTool.jsp">經文工具箱</a>
+                  
+                </div>
+              </div>                            
+            </div>
+          </div>
+          
+          
+        	  <div class="spirit-today">
+            <div class="paper paper-white">
+              <h3 class="text-center">傳送本頁</h3>
+              <hr>
+              <div class="text-center">
+                <a href="http://line.naver.jp/R/msg/text/?%E9%A6%AC%E5%8F%AF%E7%A6%8F%E9%9F%B3+%E7%AC%AC1%E7%AB%A0+%3A+https%3A%2F%2Fwww.taiwanbible.com%2Fm%2Fbible%2FreadChapter.jsp%3FBook%3DMAK%26Chapter%3D1"><img src="/m/img/LINE84x20.png"></a>
+                  
+                
+              </div>                            
+            </div>
+          </div>
+        	 
+  
+
+  
+
+  
+    
+
+            <div class="text-center">
+            <div class="bookmark">
+            	<form method="POST" action="readChapter.jsp">
+							<input type="hidden" name="action" value=setbm>
+							<input type="hidden" name="Book" value="MAK">
+							<input type="hidden" name="Chapter" value="1">
+              <select class="form-control" name="BM" onchange='this.form.submit()'>
+                <option>設定書籤</option>
+                
+                <option value="1">設定本章為書籤 1</option>                
+                
+                <option value="2">設定本章為書籤 2</option>                
+                
+                <option value="3">設定本章為書籤 3</option>                
+                
+                <option value="4">設定本章為書籤 4</option>                
+                
+                <option value="5">設定本章為書籤 5</option>                
+                
+                <option value="6">設定本章為書籤 6</option>                
+                
+              </select>
+             </form><br>
+            </div>
+          </div>
+          
+          <div class="text-center">
+            <div class="bookmark">
+            	<form method="POST" action="readChapter.jsp">
+							<input type="hidden" name="action" value=setmyfav>
+							<input type="hidden" name="Book" value="MAK">
+							<input type="hidden" name="Chapter" value="1">
+              <select class="form-control" name="Verse" onchange='this.form.submit()'>
+                <option>加到我的最愛</option>
+                
+                <option value="1">第 1 節</option>                
+                
+                <option value="2">第 2 節</option>                
+                
+                <option value="3">第 3 節</option>                
+                
+                <option value="4">第 4 節</option>                
+                
+                <option value="5">第 5 節</option>                
+                
+                <option value="6">第 6 節</option>                
+                
+                <option value="7">第 7 節</option>                
+                
+                <option value="8">第 8 節</option>                
+                
+                <option value="9">第 9 節</option>                
+                
+                <option value="10">第 10 節</option>                
+                
+                <option value="11">第 11 節</option>                
+                
+                <option value="12">第 12 節</option>                
+                
+                <option value="13">第 13 節</option>                
+                
+                <option value="14">第 14 節</option>                
+                
+                <option value="15">第 15 節</option>                
+                
+                <option value="16">第 16 節</option>                
+                
+                <option value="17">第 17 節</option>                
+                
+                <option value="18">第 18 節</option>                
+                
+                <option value="19">第 19 節</option>                
+                
+                <option value="20">第 20 節</option>                
+                
+                <option value="21">第 21 節</option>                
+                
+                <option value="22">第 22 節</option>                
+                
+                <option value="23">第 23 節</option>                
+                
+                <option value="24">第 24 節</option>                
+                
+                <option value="25">第 25 節</option>                
+                
+                <option value="26">第 26 節</option>                
+                
+                <option value="27">第 27 節</option>                
+                
+                <option value="28">第 28 節</option>                
+                
+                <option value="29">第 29 節</option>                
+                
+                <option value="30">第 30 節</option>                
+                
+                <option value="31">第 31 節</option>                
+                
+                <option value="32">第 32 節</option>                
+                
+                <option value="33">第 33 節</option>                
+                
+                <option value="34">第 34 節</option>                
+                
+                <option value="35">第 35 節</option>                
+                
+                <option value="36">第 36 節</option>                
+                
+                <option value="37">第 37 節</option>                
+                
+                <option value="38">第 38 節</option>                
+                
+                <option value="39">第 39 節</option>                
+                
+                <option value="40">第 40 節</option>                
+                
+                <option value="41">第 41 節</option>                
+                
+                <option value="42">第 42 節</option>                
+                
+                <option value="43">第 43 節</option>                
+                
+                <option value="44">第 44 節</option>                
+                
+                <option value="45">第 45 節</option>                
+                
+              </select>
+             </form>
+            </div>
+          </div>
+          
+					<div class="list-group chapters">
+						  
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=1">
+            
+              第 1 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=2">
+            
+              第 2 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=3">
+            
+              第 3 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=4">
+            
+              第 4 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=5">
+            
+              第 5 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=6">
+            
+              第 6 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=7">
+            
+              第 7 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=8">
+            
+              第 8 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=9">
+            
+              第 9 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=10">
+            
+              第 10 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=11">
+            
+              第 11 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=12">
+            
+              第 12 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=13">
+            
+              第 13 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=14">
+            
+              第 14 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=15">
+            
+              第 15 章
+            </a>
+            
+              
+            
+            <a class="list-group-item" href="readChapter.jsp?Book=MAK&Chapter=16">
+            
+              第 16 章
+            </a>
+            
+            
+            
+            
+          </div>
+  
+
+  <!-- ✅ 修正順序：先 enableSingleRequest 再 defineSlot 再 enableServices -->
+  <div id="div-gpt-ad-footer"
+       style="width:335px; height:150px; margin: 20px auto; display: block;">
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous"></script>
+    <script>
+      window.googletag = window.googletag || {cmd: []};
+      googletag.cmd.push(function() {
+        googletag.pubads().enableSingleRequest(); // ✅ 放最前面
+        googletag.defineSlot('/1002710/AD335x150', [335, 150], 'div-gpt-ad-footer')
+          .addService(googletag.pubads());
+        googletag.enableServices();
+      });
+    </script>
+    <script>
+      googletag.cmd.push(function() {
+        googletag.display('div-gpt-ad-footer');
+      });
+    </script>
+  </div>
+
+  <hr>
+</aside>
+</div>
+</div>
+
+<footer>
+  <div id="copyright">
+    <p>台灣聖經網．2015 <a href="https://www.taiwanbible.com/web/first.jsp?PC=0"><font color=white>【切換成電腦版】</font></a></p>
+    <p><small>社團法人中華基督教網路發展協會 提供</small></p>
+    <p><small>Serve by Chinese Christian Network Development Association</small></p>
+  </div>
+</footer>
+
+<script data-main="/m/js/main" src="/m/js/require.js?v=9978"></script>
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d619d5f5bd5b30d',t:'MTc3MjQ2NzIzMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
+
+

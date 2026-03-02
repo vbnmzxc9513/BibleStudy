@@ -1,0 +1,72 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - main [ref=e4]:
+    - heading "Bible Study" [level=2] [ref=e6]
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - generic [ref=e9]:
+          - heading "早安，閱讀者 ✨" [level=1] [ref=e10]
+          - paragraph [ref=e11]: 讓我們繼續今日的屬靈旅程。
+        - generic [ref=e12]:
+          - img [ref=e13]
+          - generic [ref=e15]: 0 天
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - img [ref=e19]
+          - generic [ref=e21]:
+            - heading "馬太福音 - 第 1 章" [level=2] [ref=e22]
+            - paragraph [ref=e23]: 耶穌基督的家譜
+        - button "繼續閱讀" [ref=e25] [cursor=pointer]:
+          - img [ref=e26]
+          - generic [ref=e28]: 繼續閱讀
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - img [ref=e31]
+          - heading "閱讀足跡 (最近半年)" [level=3] [ref=e33]
+        - img [ref=e36]:
+          - generic [ref=e37]:
+            - generic [ref=e38]: Sep
+            - generic [ref=e39]: Oct
+            - generic [ref=e40]: Nov
+            - generic [ref=e41]: Dec
+            - generic [ref=e42]: Jan
+            - generic [ref=e43]: Feb
+            - generic [ref=e44]: Mar
+          - generic [ref=e253]:
+            - generic [ref=e254]: Mon
+            - generic [ref=e255]: Wed
+            - generic [ref=e256]: Fri
+      - generic [ref=e257]:
+        - generic [ref=e258]:
+          - img [ref=e259]
+          - heading "您的進度" [level=3] [ref=e265]
+        - generic [ref=e266]:
+          - generic [ref=e267]:
+            - generic [ref=e268]:
+              - heading "新約" [level=4] [ref=e269]
+              - generic [ref=e270]: 0.0%
+            - paragraph [ref=e272]: 0 / 260 章
+          - generic [ref=e273]:
+            - generic [ref=e274]:
+              - heading "馬太福音" [level=4] [ref=e275]
+              - generic [ref=e276]: 0.0%
+            - paragraph [ref=e278]: 0 / 28 章
+  - navigation [ref=e279]:
+    - button "EN" [ref=e280]:
+      - img [ref=e281]
+      - generic [ref=e285]: EN
+    - link "首頁" [ref=e286] [cursor=pointer]:
+      - /url: /
+      - img [ref=e287]
+      - generic [ref=e290]: 首頁
+    - link "聖經" [ref=e291] [cursor=pointer]:
+      - /url: /books
+      - img [ref=e292]
+      - generic [ref=e294]: 聖經
+    - link "個人" [ref=e295] [cursor=pointer]:
+      - /url: /profile
+      - img [ref=e296]
+      - generic [ref=e299]: 個人
+```

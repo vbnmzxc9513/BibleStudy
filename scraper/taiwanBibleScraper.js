@@ -44,7 +44,7 @@ const bibleBooks = [
     { id: 'ZEC', name: 'Zechariah', chapters: 14 },
     { id: 'MAL', name: 'Malachi', chapters: 4 },
     { id: 'MAT', name: 'Matthew', chapters: 28 },
-    { id: 'MAK', name: 'Mark', chapters: 16 },
+    { id: 'MAR', name: 'Mark', chapters: 16 },
     { id: 'LUK', name: 'Luke', chapters: 24 },
     { id: 'JHN', name: 'John', chapters: 21 },
     { id: 'ACT', name: 'Acts', chapters: 28 },
