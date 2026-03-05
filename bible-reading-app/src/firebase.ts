@@ -4,9 +4,8 @@ import {
     getAuth,
     signInAnonymously,
     GoogleAuthProvider,
-    signInWithRedirect,
-    linkWithRedirect,
-    getRedirectResult,
+    signInWithPopup,
+    linkWithPopup,
 } from 'firebase/auth';
 import type { User } from 'firebase/auth';
 
@@ -40,19 +39,15 @@ export const loginAnonymously = async () => {
 // Google Auth Provider
 const googleProvider = new GoogleAuthProvider();
 
-// Initiates the Google login redirect flow.
-// The result is handled in AuthContext via getRedirectResult on page load.
+// Initiates the Google login popup flow.
 export const loginWithGoogle = async (currentUser: User | null) => {
     if (currentUser && currentUser.isAnonymous) {
         // Link the anonymous account to Google to preserve their progress
-        await linkWithRedirect(currentUser, googleProvider);
+        await linkWithPopup(currentUser, googleProvider);
     } else {
-        await signInWithRedirect(auth, googleProvider);
+        await signInWithPopup(auth, googleProvider);
     }
-    // This function redirects the page; it does not return a user directly.
+    // This function now uses a popup; it updates the auth state and closes.
 };
-
-// Called once on app load to resolve any pending redirect result
-export { getRedirectResult };
 
 export default app;

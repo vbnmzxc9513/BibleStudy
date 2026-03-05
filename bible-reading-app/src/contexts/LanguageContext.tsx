@@ -34,7 +34,7 @@ const translations: Translations = {
         // Reading View
         chapterStr: '第 {num} 章',
         deepenUnderstanding: '深入了解',
-        aiPrompt: '您希望 AI 牧師為您解說本章的光照與神學意涵嗎？',
+        aiPrompt: '您希望 AI 為您解說本章的光照與神學意涵嗎？',
         aiBtn: '✨ AI 陪你解經',
         finishReading: '閱讀完畢並測驗',
         startQuiz: '開始測驗',
