@@ -1,6 +1,13 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { getAuth, signInAnonymously, GoogleAuthProvider, signInWithPopup, linkWithPopup } from 'firebase/auth';
+import {
+    getAuth,
+    signInAnonymously,
+    GoogleAuthProvider,
+    signInWithRedirect,
+    linkWithRedirect,
+    getRedirectResult,
+} from 'firebase/auth';
 import type { User } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -33,27 +40,19 @@ export const loginAnonymously = async () => {
 // Google Auth Provider
 const googleProvider = new GoogleAuthProvider();
 
+// Initiates the Google login redirect flow.
+// The result is handled in AuthContext via getRedirectResult on page load.
 export const loginWithGoogle = async (currentUser: User | null) => {
-    try {
-        if (currentUser && currentUser.isAnonymous) {
-            // Try linking the anonymous account to Google to save progress
-            const result = await linkWithPopup(currentUser, googleProvider);
-            return result.user;
-        } else {
-            // Fallback to normal sign in
-            const result = await signInWithPopup(auth, googleProvider);
-            return result.user;
-        }
-    } catch (error: any) {
-        if (error.code === 'auth/credential-already-in-use') {
-            // The Google account is already linked to another Firebase account.
-            // We just sign them in to that existing account.
-            const result = await signInWithPopup(auth, googleProvider);
-            return result.user;
-        }
-        console.error("Error signing in with Google:", error);
-        throw error;
+    if (currentUser && currentUser.isAnonymous) {
+        // Link the anonymous account to Google to preserve their progress
+        await linkWithRedirect(currentUser, googleProvider);
+    } else {
+        await signInWithRedirect(auth, googleProvider);
     }
+    // This function redirects the page; it does not return a user directly.
 };
+
+// Called once on app load to resolve any pending redirect result
+export { getRedirectResult };
 
 export default app;

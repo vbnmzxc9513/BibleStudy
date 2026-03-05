@@ -41,9 +41,10 @@ const Profile = () => {
 
     const handleGoogleLogin = async () => {
         try {
+            // Triggers a page redirect to Google. The result is handled on return via AuthContext.
             await loginWithGoogle(user);
         } catch (error) {
-            console.error("Failed to login with Google:", error);
+            console.error("Failed to initiate Google login:", error);
             alert("Google 登入失敗 / Google Login Failed");
         }
     };

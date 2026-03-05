@@ -16,6 +16,21 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const DATA_FILE = path.join(__dirname, 'data', 'taiwanbible_full.json');
 
+const ID_MAP = {
+    "JUG": "JDG",
+    "PSM": "PSA",
+    "SON": "SNG",
+    "EZE": "EZK",
+    "JOE": "JOL",
+    "NAH": "NAM",
+    "MAK": "MRK",
+    "MAR": "MRK",
+    "1TS": "1TH",
+    "2TS": "2TH",
+    "MON": "PHM",
+    "PHL": "PHP"
+};
+
 async function upload() {
     if (!fs.existsSync(DATA_FILE)) {
         console.error(`Data file not found at ${DATA_FILE}.`);
@@ -30,11 +45,14 @@ async function upload() {
     let totalUploaded = 0;
 
     for (const book of bibleData) {
+        // Map the book ID if it's in our mismatch list
+        const bookId = ID_MAP[book.book_id] || book.book_id;
+
         for (const chapter of book.chapters) {
-            const docId = `${book.book_id}_${chapter.chapter}`;
+            const docId = `${bookId}_${chapter.chapter}`;
             const docRef = doc(db, 'bible_books', docId);
             batch.set(docRef, {
-                bookId: book.book_id,
+                bookId: bookId,
                 chapter: chapter.chapter,
                 verses: chapter.verses
             });
