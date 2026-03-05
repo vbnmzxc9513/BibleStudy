@@ -12,7 +12,7 @@ function App() {
   return (
     <AuthProvider>
       <LanguageProvider>
-        <BrowserRouter>
+        <BrowserRouter basename="/BibleStudy/">
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Dashboard />} />
