@@ -26,6 +26,7 @@ export const saveUserProgress = async (uid: string, bookId: string, chapter: num
         console.log(`Progress saved for ${docId}`);
     } catch (error) {
         console.error("Error saving progress to Firebase:", error);
+        throw error; // Re-throw so the caller can handle the failure
     }
 };
 

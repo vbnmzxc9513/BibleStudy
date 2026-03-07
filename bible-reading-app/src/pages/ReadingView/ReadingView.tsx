@@ -51,6 +51,9 @@ const ReadingView = () => {
     const [isAnswerChecked, setIsAnswerChecked] = useState(false);
     const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
 
+    const [isSaving, setIsSaving] = useState(false);
+    const [saveError, setSaveError] = useState(false);
+
     // Fetch actual data from Firestore
     useEffect(() => {
         const fetchChapterData = async () => {
@@ -170,11 +173,22 @@ const ReadingView = () => {
             setIsAnswerChecked(false);
             setIsAnswerCorrect(null);
         } else {
-            setQuizCompleted(true);
+            // Save progress FIRST, then show completion UI
             if (user && !user.isAnonymous) {
-                await saveUserProgress(user.uid, safeBookId, safeChapter);
+                setIsSaving(true);
+                setSaveError(false);
+                try {
+                    await saveUserProgress(user.uid, safeBookId, safeChapter);
+                    setQuizCompleted(true);
+                } catch {
+                    setSaveError(true);
+                } finally {
+                    setIsSaving(false);
+                }
+            } else {
+                // Anonymous / unauthenticated users: progress not saved to Firebase
+                setQuizCompleted(true);
             }
-            // Anonymous / unauthenticated users: progress not saved to Firebase
         }
     };
 
@@ -325,16 +339,26 @@ const ReadingView = () => {
                                             {language === 'zh_TW' ? '檢查答案' : 'Check Answer'}
                                         </button>
                                     ) : (
-                                        <button
-                                            className={`btn w-full mt-6 font-bold tracking-wide py-4 text-lg rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${isAnswerCorrect ? 'bg-emerald-600 hover:bg-emerald-500 text-white border-none' : 'bg-amber-500 hover:bg-amber-400 text-white border-none'}`}
-                                            onClick={handleNextQuestionOrRetry}
-                                        >
-                                            {isAnswerCorrect === false
-                                                ? (language === 'zh_TW' ? '重新挑戰這題 🔄' : 'Try Again 🔄')
-                                                : (currentQuestionIndex < quizData.length - 1
-                                                    ? (language === 'zh_TW' ? '繼續下一題 ➡️' : 'Next Question ➡️')
-                                                    : (language === 'zh_TW' ? '🎉 完成並打卡 🎉' : '🎉 Complete & Save Progress 🎉'))}
-                                        </button>
+                                        <>
+                                            <button
+                                                className={`btn w-full mt-6 font-bold tracking-wide py-4 text-lg rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${isAnswerCorrect ? 'bg-emerald-600 hover:bg-emerald-500 text-white border-none' : 'bg-amber-500 hover:bg-amber-400 text-white border-none'} ${isSaving ? 'opacity-70 cursor-wait' : ''}`}
+                                                onClick={handleNextQuestionOrRetry}
+                                                disabled={isSaving}
+                                            >
+                                                {isSaving
+                                                    ? (language === 'zh_TW' ? '⏳ 儲存中...' : '⏳ Saving...')
+                                                    : isAnswerCorrect === false
+                                                        ? (language === 'zh_TW' ? '重新挑戰這題 🔄' : 'Try Again 🔄')
+                                                        : (currentQuestionIndex < quizData.length - 1
+                                                            ? (language === 'zh_TW' ? '繼續下一題 ➡️' : 'Next Question ➡️')
+                                                            : (language === 'zh_TW' ? '🎉 完成並打卡 🎉' : '🎉 Complete & Save Progress 🎉'))}
+                                            </button>
+                                            {saveError && (
+                                                <div className="mt-3 p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-700 dark:text-rose-300 text-sm text-center">
+                                                    {language === 'zh_TW' ? '❌ 打卡儲存失敗，請再試一次' : '❌ Failed to save progress, please try again'}
+                                                </div>
+                                            )}
+                                        </>
                                     )}
                                 </>
                             ) : (
