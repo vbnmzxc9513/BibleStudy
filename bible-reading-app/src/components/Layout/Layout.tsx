@@ -78,6 +78,10 @@ const Layout = () => {
                         <span className="mobile-nav-label">{item.label}</span>
                     </NavLink>
                 ))}
+                <button className="mobile-settings-btn" onClick={() => setIsSettingsOpen(true)}>
+                    <Settings size={24} />
+                    <span>{t('aiSettings')}</span>
+                </button>
             </nav>
         </div>
     );

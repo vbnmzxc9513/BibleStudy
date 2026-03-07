@@ -169,6 +169,26 @@
     color: var(--text-secondary);
 }
 
+.mobile-settings-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: 600;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    flex: 0.7;
+}
+
+.mobile-settings-btn:hover {
+    color: var(--text-secondary);
+}
+
 /* Responsive Breakpoints */
 @media (min-width: 768px) {
     .sidebar {
