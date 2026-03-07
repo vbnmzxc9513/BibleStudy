@@ -2,12 +2,11 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import {
     getAuth,
-    signInAnonymously,
     GoogleAuthProvider,
     signInWithPopup,
-    linkWithPopup,
+    signInWithRedirect,
+    getRedirectResult,
 } from 'firebase/auth';
-import type { User } from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBQMLMPSMuFBLBTsNAGB1f2zQPkgMGDfdc",
@@ -25,29 +24,32 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 
-// Lazy Login Helper
-export const loginAnonymously = async () => {
-    try {
-        const userCredential = await signInAnonymously(auth);
-        return userCredential.user;
-    } catch (error) {
-        console.error("Error signing in anonymously:", error);
-        return null;
-    }
-};
-
 // Google Auth Provider
 const googleProvider = new GoogleAuthProvider();
 
-// Initiates the Google login popup flow.
-export const loginWithGoogle = async (currentUser: User | null) => {
-    if (currentUser && currentUser.isAnonymous) {
-        // Link the anonymous account to Google to preserve their progress
-        await linkWithPopup(currentUser, googleProvider);
-    } else {
+// Login with Google: tries popup first, falls back to redirect if blocked.
+export const loginWithGoogle = async () => {
+    try {
         await signInWithPopup(auth, googleProvider);
+    } catch (error: any) {
+        if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
+            console.warn('Popup blocked, falling back to redirect...');
+            await signInWithRedirect(auth, googleProvider);
+        } else {
+            throw error;
+        }
     }
-    // This function now uses a popup; it updates the auth state and closes.
+};
+
+// Called on app load to complete redirect-based login (fallback case).
+export const handlePostLoginRedirect = async () => {
+    try {
+        const result = await getRedirectResult(auth);
+        return result?.user ?? null;
+    } catch (error: any) {
+        console.error("Redirect result error:", error);
+        return null;
+    }
 };
 
 export default app;

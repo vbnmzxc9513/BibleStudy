@@ -15,10 +15,10 @@ export const generateDeepDiveFromAI = async (
 
     const isGemini = apiKey.startsWith('AIza');
     const langInstructions = language === 'zh_TW'
-        ? '請用繁體中文回答。'
-        : 'Please answer in English.';
+        ? '請用繁體中文回答，並且請務必使用 Markdown 語法來排版（例如使用標題、粗體、清單等），確保文章有良好的排版且易於閱讀。'
+        : 'Please answer in English, and you MUST use Markdown formatting (e.g., headings, bold text, lists) to make the text well-structured and easy to read.';
 
-    const prompt = `Based on the following Bible verses, generate a short, engaging theological explanation and insight for the chapter.
+    const prompt = `Based on the following Bible verses, generate an engaging theological explanation and insight for the chapter.
 ${langInstructions}
 
 Verses:

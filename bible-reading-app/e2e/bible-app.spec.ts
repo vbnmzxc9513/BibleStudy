@@ -404,4 +404,67 @@ test.describe('Bible Study App E2E Tests', () => {
         expect(deepDiveBox!.width).toBeGreaterThan(0);
         expect(quizBox!.width).toBeGreaterThan(0);
     });
+
+    // ==========================================
+    // Real API Integrations & Fixes (31-33)
+    // ==========================================
+    test('31. Google Login button UI triggers auth popup', async ({ page }) => {
+        await page.goto('/#/profile');
+        const loginBtn = page.locator('button:has-text("連結 Google 帳號")');
+        await loginBtn.waitFor({ state: 'visible' });
+
+        // Trigger Google Login and verify a popup is opened for OAuth
+        const [popup] = await Promise.all([
+            page.waitForEvent('popup'),
+            loginBtn.click({ force: true })
+        ]);
+
+        expect(popup).toBeTruthy();
+        // We won't automate the Google login forms as that breaks terms and triggers captchas. 
+        // Verifying the popup opens means the integration is correctly wired.
+        await popup.close();
+    });
+
+    test('32. Real AI Deep Dive End-to-End', async ({ page }) => {
+        test.setTimeout(90000); // Allow more time for real AI response
+        const apiKey = process.env.TEST_AI_API_KEY;
+        test.skip(!apiKey, 'TEST_AI_API_KEY is not set');
+
+        await page.goto('/#/read/MAT/1');
+        await page.waitForSelector('.ai-companion-section');
+        await page.evaluate((key) => localStorage.setItem('ai_api_key', key || ''), apiKey);
+
+        const deepDiveBtn = page.locator('button:has-text("深入了解")');
+        await deepDiveBtn.waitFor({ state: 'visible' });
+        await deepDiveBtn.click({ force: true });
+
+        const modal = page.locator('.deep-dive-modal');
+        await modal.waitFor({ state: 'visible', timeout: 30000 }); // Real API might take a few seconds
+
+        await expect(modal).toBeVisible();
+        const textContent = await modal.textContent();
+        expect(textContent?.length).toBeGreaterThan(50); // Real AI should generate substantial content
+    });
+
+    test('33. Real AI Quiz End-to-End', async ({ page }) => {
+        test.setTimeout(120000); // Quizzes involve more tokens and can take much longer
+        const apiKey = process.env.TEST_AI_API_KEY;
+        test.skip(!apiKey, 'TEST_AI_API_KEY is not set');
+
+        await page.goto('/#/read/MAT/1');
+        await page.waitForSelector('.ai-companion-section');
+        await page.evaluate((key) => localStorage.setItem('ai_api_key', key || ''), apiKey);
+
+        const quizBtn = page.locator('button:has-text("開始測驗")');
+        await quizBtn.waitFor({ state: 'visible' });
+        await quizBtn.click({ force: true });
+
+        const quizModal = page.locator('.quiz-modal');
+        await quizModal.waitFor({ state: 'visible', timeout: 30000 });
+
+        await expect(quizModal).toBeVisible();
+        const options = quizModal.locator('button.w-full.text-left');
+        const optionCount = await options.count();
+        expect(optionCount).toBeGreaterThanOrEqual(2); // AI successfully generated multiple choices
+    });
 });

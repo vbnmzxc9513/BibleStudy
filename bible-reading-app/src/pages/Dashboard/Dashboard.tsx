@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Flame, Trophy, Play, BookOpen, Calendar as CalendarIcon } from 'lucide-react';
+import { Flame, Trophy, Play, BookOpen, Calendar as CalendarIcon, ChevronDown, ChevronUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
@@ -19,6 +19,8 @@ const Dashboard = () => {
     const [history, setHistory] = useState<ReadingProgress[]>([]);
     const [heatmapValues, setHeatmapValues] = useState<{ date: string, count: number }[]>([]);
     const [currentStreak, setCurrentStreak] = useState(0);
+    const [otExpanded, setOtExpanded] = useState(false);
+    const [ntExpanded, setNtExpanded] = useState(false);
 
     useEffect(() => {
         const loadProgress = async () => {
@@ -100,6 +102,21 @@ const Dashboard = () => {
     const matthewName = language === 'zh_TW' ? matthewBook?.cnName : matthewBook?.enName;
     const heroSubtitle = language === 'zh_TW' ? '耶穌基督的家譜' : 'The Genealogy of Jesus';
 
+    // Derived Progress Calculations
+    const otBooks = bibleBooks.filter(b => b.testament === 'OT');
+    const ntBooks = bibleBooks.filter(b => b.testament === 'NT');
+
+    const otTotalChapters = otBooks.reduce((sum, b) => sum + b.chapters, 0);
+    const ntTotalChapters = ntBooks.reduce((sum, b) => sum + b.chapters, 0);
+
+    // Filter to unique chapters just in case there are duplicates in history
+    const uniqueHistory = Array.from(new Map(history.map((item: ReadingProgress) => [`${item.bookId}-${item.chapter}`, item])).values());
+
+    const otReadCount = uniqueHistory.filter((h: ReadingProgress) => otBooks.some(b => b.id === h.bookId)).length;
+    const ntReadCount = uniqueHistory.filter((h: ReadingProgress) => ntBooks.some(b => b.id === h.bookId)).length;
+
+    const getBookProgress = (bookId: string) => uniqueHistory.filter((h: ReadingProgress) => h.bookId === bookId).length;
+
     return (
         <div className="dashboard-container pb-24 animate-fade-in-up">
             <header className="dashboard-header mb-6">
@@ -166,27 +183,89 @@ const Dashboard = () => {
                     <h3 className="font-semibold">{t('yourProgress')}</h3>
                 </div>
 
-                <div className="progress-grid grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="progress-card glass-card border border-glass-border">
-                        <div className="progress-card-header flex justify-between mb-2">
-                            <h4 className="font-medium">{t('newTestament')}</h4>
-                            <span className="percentage text-brand-color font-bold">{(history.length / 260 * 100).toFixed(1)}%</span>
+                <div className="testaments-container">
+                    {/* Old Testament */}
+                    <div className="testament-card glass-card">
+                        <div
+                            className="testament-header"
+                            onClick={() => setOtExpanded(!otExpanded)}
+                        >
+                            <div className="progress-card-header">
+                                <h4 className="testament-title">
+                                    {t('oldTestament')}
+                                    {otExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                                </h4>
+                                <span className="percentage">{(otReadCount / otTotalChapters * 100).toFixed(1)}%</span>
+                            </div>
+                            <div className="progress-container">
+                                <div className="progress-bar" style={{ width: `${Math.min((otReadCount / otTotalChapters * 100), 100)}%` }}></div>
+                            </div>
+                            <p className="progress-detail">{otReadCount} / {otTotalChapters} {t('chapters')}</p>
                         </div>
-                        <div className="progress-container bg-bg-secondary h-2.5 rounded-full overflow-hidden mb-2">
-                            <div className="progress-bar bg-gradient-brand h-full rounded-full transition-all duration-1000" style={{ width: `${Math.min((history.length / 260 * 100), 100)}%` }}></div>
-                        </div>
-                        <p className="progress-detail text-xs text-text-muted text-right">{history.length} / 260 {t('chapters')}</p>
+
+                        {otExpanded && (
+                            <div className="testament-books-list">
+                                {otBooks.map(book => {
+                                    const count = getBookProgress(book.id);
+                                    const percent = (count / book.chapters) * 100;
+                                    return (
+                                        <div key={book.id} className="book-progress-item">
+                                            <div className="book-progress-header">
+                                                <span className="book-name">{language === 'zh_TW' ? book.cnName : book.enName}</span>
+                                                <span className={`book-stats ${count > 0 ? "has-progress" : ""}`}>
+                                                    {percent.toFixed(0)}% ({count} / {book.chapters})
+                                                </span>
+                                            </div>
+                                            <div className="book-progress-container">
+                                                <div className="book-progress-bar" style={{ width: `${Math.min(percent, 100)}%` }}></div>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        )}
                     </div>
 
-                    <div className="progress-card glass-card border border-glass-border">
-                        <div className="progress-card-header flex justify-between mb-2">
-                            <h4 className="font-medium">{matthewName}</h4>
-                            <span className="percentage text-brand-color font-bold">{(history.filter((h: ReadingProgress) => h.bookId === 'MAT').length / 28 * 100).toFixed(1)}%</span>
+                    {/* New Testament */}
+                    <div className="testament-card glass-card">
+                        <div
+                            className="testament-header"
+                            onClick={() => setNtExpanded(!ntExpanded)}
+                        >
+                            <div className="progress-card-header">
+                                <h4 className="testament-title">
+                                    {t('newTestament')}
+                                    {ntExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                                </h4>
+                                <span className="percentage">{(ntReadCount / ntTotalChapters * 100).toFixed(1)}%</span>
+                            </div>
+                            <div className="progress-container">
+                                <div className="progress-bar" style={{ width: `${Math.min((ntReadCount / ntTotalChapters * 100), 100)}%` }}></div>
+                            </div>
+                            <p className="progress-detail">{ntReadCount} / {ntTotalChapters} {t('chapters')}</p>
                         </div>
-                        <div className="progress-container bg-bg-secondary h-2.5 rounded-full overflow-hidden mb-2">
-                            <div className="progress-bar bg-gradient-brand h-full rounded-full transition-all duration-1000" style={{ width: `${Math.min((history.filter((h: ReadingProgress) => h.bookId === 'MAT').length / 28 * 100), 100)}%` }}></div>
-                        </div>
-                        <p className="progress-detail text-xs text-text-muted text-right">{history.filter((h: ReadingProgress) => h.bookId === 'MAT').length} / 28 {t('chapters')}</p>
+
+                        {ntExpanded && (
+                            <div className="testament-books-list">
+                                {ntBooks.map(book => {
+                                    const count = getBookProgress(book.id);
+                                    const percent = (count / book.chapters) * 100;
+                                    return (
+                                        <div key={book.id} className="book-progress-item">
+                                            <div className="book-progress-header">
+                                                <span className="book-name">{language === 'zh_TW' ? book.cnName : book.enName}</span>
+                                                <span className={`book-stats ${count > 0 ? "has-progress" : ""}`}>
+                                                    {percent.toFixed(0)}% ({count} / {book.chapters})
+                                                </span>
+                                            </div>
+                                            <div className="book-progress-container">
+                                                <div className="book-progress-bar" style={{ width: `${Math.min(percent, 100)}%` }}></div>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>

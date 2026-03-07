@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
-import { Sparkles, ArrowLeft, Loader2, CheckCircle, MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Sparkles, ArrowLeft, Loader2, CheckCircle, MessageCircle, ChevronLeft, ChevronRight, XCircle } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 import { bibleBooks } from '../../constants/bibleBooks';
 import { db } from '../../firebase';
 import { doc, getDoc } from 'firebase/firestore';
@@ -47,6 +48,9 @@ const ReadingView = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [score, setScore] = useState(0);
 
+    const [isAnswerChecked, setIsAnswerChecked] = useState(false);
+    const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
+
     // Fetch actual data from Firestore
     useEffect(() => {
         const fetchChapterData = async () => {
@@ -89,12 +93,16 @@ const ReadingView = () => {
         }
 
         const versesText = verses.map(v => `${v.number || v.verse} ${v.text}`).join('\n');
-        const generated = await generateDeepDiveFromAI(versesText, language, apiKey);
 
-        if (generated) {
-            setDeepDiveText(generated);
-            setShowDeepDive(true);
-        } else {
+        try {
+            const generated = await generateDeepDiveFromAI(versesText, language, apiKey);
+            if (generated) {
+                setDeepDiveText(generated);
+                setShowDeepDive(true);
+                setShowQuiz(false);
+            }
+        } finally {
+            setIsGeneratingDeepDive(false);
         }
     };
 
@@ -107,6 +115,7 @@ const ReadingView = () => {
 
         setIsGenerating(true);
         setShowQuiz(true);
+        setShowDeepDive(false);
         const combinedText = verses.map(v => `${v.number || v.verse}: ${v.text}`).join('\n');
 
         try {
@@ -117,6 +126,8 @@ const ReadingView = () => {
                 setScore(0);
                 setQuizCompleted(false);
                 setSelectedOption(null);
+                setIsAnswerChecked(false);
+                setIsAnswerCorrect(null);
             } else {
                 setShowQuiz(false);
                 alert(t('apiErrorPleaseCheckKey'));
@@ -130,28 +141,40 @@ const ReadingView = () => {
     };
 
 
-    const handleSubmitQuiz = async () => {
-        if (selectedOption === null || !quizData || quizData.length === 0) return;
+    const handleCheckAnswer = () => {
+        if (selectedOption === null || !quizData) return;
 
         const currentQ = quizData[currentQuestionIndex];
         const isCorrect = selectedOption === currentQ.correctIndex;
+        setIsAnswerCorrect(isCorrect);
+        setIsAnswerChecked(true);
 
         if (isCorrect) {
             setScore(prev => prev + 1);
         }
+    };
 
-        // Always proceed to next after submitting (whether right or wrong) if there are more questions
+    const handleNextQuestionOrRetry = async () => {
+        if (!quizData) return;
+
+        if (isAnswerCorrect === false) {
+            setSelectedOption(null);
+            setIsAnswerChecked(false);
+            setIsAnswerCorrect(null);
+            return;
+        }
+
         if (currentQuestionIndex < quizData.length - 1) {
             setCurrentQuestionIndex(prev => prev + 1);
-            setSelectedOption(null); // Reset option for next question
+            setSelectedOption(null);
+            setIsAnswerChecked(false);
+            setIsAnswerCorrect(null);
         } else {
-            // Reached the end
             setQuizCompleted(true);
-            if (user) {
+            if (user && !user.isAnonymous) {
                 await saveUserProgress(user.uid, safeBookId, safeChapter);
-            } else {
-                alert(t('guestProgressWarning'));
             }
+            // Anonymous / unauthenticated users: progress not saved to Firebase
         }
     };
 
@@ -195,35 +218,28 @@ const ReadingView = () => {
                 </div>
                 <p className="mb-4">{t('aiPrompt')}</p>
                 <div className="quiz-trigger-section">
-                    <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                    <div className="quiz-trigger-buttons">
                         <button
-                            className="btn flex-1 quiz-btn"
+                            className={`btn flex-1 premium-deep-dive-btn ${isGeneratingDeepDive || verses.length === 0 ? 'disabled-btn' : ''}`}
                             onClick={handleGenerateDeepDive}
                             disabled={isGeneratingDeepDive || verses.length === 0}
-                            style={{
-                                background: isGeneratingDeepDive || verses.length === 0 ? 'var(--bg-tertiary)' : 'linear-gradient(135deg, var(--accent-primary), var(--brand-color))',
-                                color: isGeneratingDeepDive || verses.length === 0 ? 'var(--text-muted)' : 'white',
-                                border: 'none',
-                                opacity: verses.length === 0 ? 0.5 : 1
-                            }}
                         >
-                            {isGeneratingDeepDive ? <Loader2 size={20} className="animate-spin" /> : <Sparkles size={20} />}
-                            <span>{isGeneratingDeepDive ? t('generatingContent') : t('deepenUnderstanding')}</span>
+                            <div className="btn-content">
+                                {isGeneratingDeepDive ? <Loader2 size={20} className="animate-spin" /> : <Sparkles size={20} className="icon-glow" />}
+                                <span>{isGeneratingDeepDive ? t('generatingContent') : t('deepenUnderstanding')}</span>
+                            </div>
+                            <div className="btn-glow"></div>
                         </button>
 
                         <button
-                            className="btn flex-1 quiz-btn"
+                            className={`btn flex-1 premium-quiz-btn ${isGenerating || verses.length === 0 ? 'disabled-btn' : ''}`}
                             onClick={handleGenerateQuiz}
                             disabled={isGenerating || verses.length === 0}
-                            style={{
-                                background: isGenerating || verses.length === 0 ? 'var(--bg-tertiary)' : 'var(--bg-primary)',
-                                color: isGenerating || verses.length === 0 ? 'var(--text-muted)' : 'var(--brand-color)',
-                                border: '2px solid var(--brand-color)',
-                                opacity: verses.length === 0 ? 0.5 : 1
-                            }}
                         >
-                            {isGenerating ? <Loader2 size={20} className="animate-spin" /> : <CheckCircle size={20} />}
-                            <span>{isGenerating ? (language === 'zh_TW' ? '產生中...' : 'Generating...') : t('startQuiz')}</span>
+                            <div className="btn-content">
+                                {isGenerating ? <Loader2 size={20} className="animate-spin" /> : <CheckCircle size={20} />}
+                                <span>{isGenerating ? (language === 'zh_TW' ? '產生中...' : 'Generating...') : t('startQuiz')}</span>
+                            </div>
                         </button>
                     </div>
 
@@ -233,20 +249,23 @@ const ReadingView = () => {
                                 <Sparkles size={20} />
                                 <h4 className="text-lg font-semibold">{t('deepenUnderstanding')}</h4>
                             </div>
-                            <div className="ai-feedback-box p-4 bg-white/50 dark:bg-black/20 rounded-lg border border-brand-color/30 text-text-secondary leading-relaxed text-sm whitespace-pre-wrap">
-                                {currentDeepDiveText}
+                            <div className="ai-feedback-box p-4 bg-white/50 dark:bg-black/20 rounded-lg border border-brand-color/30 text-text-secondary leading-relaxed text-sm markdown-prose">
+                                <ReactMarkdown>{currentDeepDiveText}</ReactMarkdown>
                             </div>
                         </div>
                     )}
 
                     {showQuiz && quizData && quizData.length > 0 && (
                         <div className="quiz-modal bg-bg-secondary p-5 rounded-xl border border-glass-border animate-fade-in-up mt-4">
-                            <div className="flex justify-between items-center mb-2">
+                            <div className="quiz-header-section mb-4">
                                 <h4 className="text-lg font-semibold">{t('chapterStr', { num: chapter || 1 })} {t('recapQuiz')}</h4>
                                 {!quizCompleted && (
-                                    <span className="text-sm font-medium text-brand-color bg-brand-color/10 px-2 py-1 rounded">
-                                        {currentQuestionIndex + 1} / {quizData.length}
-                                    </span>
+                                    <div className="quiz-progress-track">
+                                        <div
+                                            className="quiz-progress-fill"
+                                            style={{ width: `${((currentQuestionIndex + 1) / quizData.length) * 100}%` }}
+                                        ></div>
+                                    </div>
                                 )}
                             </div>
 
@@ -254,32 +273,69 @@ const ReadingView = () => {
                                 <>
                                     <div className="quiz-question">
                                         <p className="question-text font-medium text-text-primary mb-3">{quizData[currentQuestionIndex].question}</p>
-                                        <div className="options mt-3 flex flex-col gap-2">
-                                            {quizData[currentQuestionIndex].options.map((opt: string, idx: number) => (
-                                                <button
-                                                    key={idx}
-                                                    className={`w-full text-left p-3 rounded-md border transition-all duration-200 
-                                                        ${selectedOption === idx
-                                                            ? 'bg-brand-color/10 border-brand-color text-brand-color'
-                                                            : 'bg-bg-primary border-border-color hover:border-brand-color'}`}
-                                                    onClick={() => setSelectedOption(idx)}
-                                                >
-                                                    {opt}
-                                                </button>
-                                            ))}
+                                        <div className="options mt-3 flex flex-col gap-3">
+                                            {quizData[currentQuestionIndex].options.map((opt: string, idx: number) => {
+                                                let btnClass = '';
+
+                                                if (isAnswerChecked) {
+                                                    if (idx === quizData[currentQuestionIndex].correctIndex) {
+                                                        btnClass = 'quiz-option-correct';
+                                                    } else if (idx === selectedOption && !isAnswerCorrect) {
+                                                        btnClass = 'quiz-option-wrong';
+                                                    } else {
+                                                        btnClass = 'quiz-option-disabled';
+                                                    }
+                                                } else if (selectedOption === idx) {
+                                                    btnClass = 'quiz-option-selected';
+                                                }
+
+                                                return (
+                                                    <button
+                                                        key={idx}
+                                                        disabled={isAnswerChecked}
+                                                        className={`quiz-option ${btnClass}`}
+                                                        onClick={() => setSelectedOption(idx)}
+                                                    >
+                                                        <div className="radio-circle">
+                                                            <div className="radio-dot"></div>
+                                                        </div>
+                                                        <span className="flex-1 leading-snug">{opt}</span>
+                                                    </button>
+                                                );
+                                            })}
                                         </div>
                                     </div>
 
-                                    <button
-                                        className="btn btn-primary w-full mt-5 font-bold tracking-wide"
-                                        onClick={handleSubmitQuiz}
-                                        disabled={selectedOption === null}
-                                        style={{ opacity: selectedOption === null ? 0.5 : 1 }}
-                                    >
-                                        {currentQuestionIndex < quizData.length - 1
-                                            ? (language === 'zh_TW' ? '下一題' : 'Next Question')
-                                            : (language === 'zh_TW' ? '送出並打卡' : 'Submit & Save Progress')}
-                                    </button>
+                                    {isAnswerChecked && (
+                                        <div className={`mt-5 p-5 rounded-xl border-2 animate-fade-in-up ${isAnswerCorrect ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-800 dark:text-emerald-200' : 'bg-rose-500/10 border-rose-500/30 text-rose-800 dark:text-rose-200'}`}>
+                                            <div className="font-bold flex items-center gap-2 mb-2 text-lg">
+                                                {isAnswerCorrect ? <CheckCircle className="text-emerald-500" size={24} /> : <XCircle className="text-rose-500" size={24} />}
+                                                {isAnswerCorrect ? (language === 'zh_TW' ? '太棒了！答對了 🎉' : 'Excellent! Correct 🎉') : (language === 'zh_TW' ? '哎呀！答錯了 💡' : 'Oops! Incorrect 💡')}
+                                            </div>
+                                            <p className="text-sm md:text-base opacity-90 leading-relaxed">{quizData[currentQuestionIndex].explanation}</p>
+                                        </div>
+                                    )}
+
+                                    {!isAnswerChecked ? (
+                                        <button
+                                            className={`btn w-full mt-6 font-bold tracking-wide py-4 text-lg rounded-xl transition-all duration-300 ${selectedOption !== null ? 'bg-brand-color text-white shadow-lg hover:shadow-xl hover:-translate-y-1' : 'bg-bg-tertiary text-text-muted cursor-not-allowed border-none'}`}
+                                            onClick={handleCheckAnswer}
+                                            disabled={selectedOption === null}
+                                        >
+                                            {language === 'zh_TW' ? '檢查答案' : 'Check Answer'}
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className={`btn w-full mt-6 font-bold tracking-wide py-4 text-lg rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${isAnswerCorrect ? 'bg-emerald-600 hover:bg-emerald-500 text-white border-none' : 'bg-amber-500 hover:bg-amber-400 text-white border-none'}`}
+                                            onClick={handleNextQuestionOrRetry}
+                                        >
+                                            {isAnswerCorrect === false
+                                                ? (language === 'zh_TW' ? '重新挑戰這題 🔄' : 'Try Again 🔄')
+                                                : (currentQuestionIndex < quizData.length - 1
+                                                    ? (language === 'zh_TW' ? '繼續下一題 ➡️' : 'Next Question ➡️')
+                                                    : (language === 'zh_TW' ? '🎉 完成並打卡 🎉' : '🎉 Complete & Save Progress 🎉'))}
+                                        </button>
+                                    )}
                                 </>
                             ) : (
                                 <div className="quiz-feedback-section delay-100 animate-fade-in-up">

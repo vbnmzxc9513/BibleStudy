@@ -1,51 +1,27 @@
-import { useState, useEffect } from 'react';
-import { User as UserIcon, Key, ShieldCheck, Save, Cpu } from 'lucide-react';
+import { User as UserIcon } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { loginWithGoogle } from '../../firebase';
 import './Profile.css';
 
 const Profile = () => {
-    const [apiKey, setApiKey] = useState('');
-    const [aiModel, setAiModel] = useState('gemini-2.5-flash');
-    const [isSaved, setIsSaved] = useState(false);
     const { t } = useLanguage();
     const { user, loading } = useAuth();
 
-    useEffect(() => {
-        const savedKey = localStorage.getItem('ai_api_key');
-        if (savedKey) setApiKey(savedKey);
-
-        const savedModel = localStorage.getItem('ai_model');
-        if (savedModel) setAiModel(savedModel);
-    }, []);
-
-    const handleSaveKey = () => {
-        localStorage.setItem('ai_api_key', apiKey);
-        localStorage.setItem('ai_model', aiModel);
-        setIsSaved(true);
-        setTimeout(() => setIsSaved(false), 3000);
-    };
-
-    // Safely extract the most accurate display name from Firebase User object
+    // Safely extract display name
     let finalDisplayName = t('guestUser');
     if (user) {
-        if (user.isAnonymous) {
-            finalDisplayName = `User ${user.uid.slice(0, 5)}`;
-        } else {
-            // Check provider data first if top-level displayName is missing
-            const googleProvider = user.providerData?.find(p => p.providerId === 'google.com');
-            finalDisplayName = user.displayName || googleProvider?.displayName || 'Google User';
-        }
+        const googleProvider = user.providerData?.find(p => p.providerId === 'google.com');
+        finalDisplayName = user.displayName || googleProvider?.displayName || 'Google User';
     }
 
     const handleGoogleLogin = async () => {
         try {
-            // Triggers a page redirect to Google. The result is handled on return via AuthContext.
-            await loginWithGoogle(user);
-        } catch (error) {
+            await loginWithGoogle();
+            // page will redirect to Google; result handled in AuthContext on return
+        } catch (error: any) {
             console.error("Failed to initiate Google login:", error);
-            alert("Google 登入失敗 / Google Login Failed");
+            alert(`Google 登入失敗 / Google Login Failed: ${error.message || error}`);
         }
     };
 
@@ -61,9 +37,9 @@ const Profile = () => {
                 </div>
                 <div className="profile-info">
                     <h3>{loading ? 'Loading...' : finalDisplayName}</h3>
-                    <p className="text-muted">{user ? (user.isAnonymous ? t('anonymousAccount') : t('linkedGoogleAccount')) : t('anonymousAccount')}</p>
+                    <p className="text-muted">{user ? t('linkedGoogleAccount') : t('anonymousAccount')}</p>
                 </div>
-                {user && user.isAnonymous && (
+                {!user && (
                     <button className="btn w-full flex justify-center items-center gap-2 mt-4" onClick={handleGoogleLogin} style={{ backgroundColor: 'white', color: '#757575', border: '1px solid #ddd' }}>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M22.56 12.25C22.56 11.47 22.49 10.73 22.36 10.03H12V14.23H17.93C17.67 15.58 16.92 16.74 15.78 17.51V20.24H19.34C21.43 18.32 22.56 15.54 22.56 12.25Z" fill="#4285F4" />
@@ -74,79 +50,6 @@ const Profile = () => {
                         <span className="font-medium">{t('signInGoogle')}</span>
                     </button>
                 )}
-            </section>
-
-            <section className="settings-section delay-100">
-                <div className="section-title">
-                    <ShieldCheck size={24} className="icon-success" />
-                    <h3>{t('aiSettingsTitle')}</h3>
-                </div>
-
-                <div className="settings-card glass-card">
-                    <p className="settings-desc">
-                        {t('settingsDesc')}
-                    </p>
-
-                    <div className="input-group">
-                        <label htmlFor="apiKey">{t('openAiKey')}</label>
-                        <div className="input-wrapper">
-                            <Key size={18} className="input-icon" />
-                            <input
-                                type="password"
-                                id="apiKey"
-                                value={apiKey}
-                                onChange={(e) => setApiKey(e.target.value)}
-                                placeholder="sk-..."
-                                className="text-input"
-                            />
-                        </div>
-                    </div>
-
-                    <div className="input-group mt-4">
-                        <label htmlFor="aiModel">{t('aiModel')}</label>
-                        <div className="input-wrapper">
-                            <Cpu size={18} className="input-icon" />
-                            <select
-                                id="aiModel"
-                                value={aiModel}
-                                onChange={(e) => setAiModel(e.target.value)}
-                                className="text-input"
-                                style={{ appearance: 'none' }}
-                            >
-                                <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
-                                <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
-                                <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
-                                <option value="gpt-4o-mini">GPT-4o Mini</option>
-                                <option value="gpt-4o">GPT-4o</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <button
-                        className="btn btn-primary w-full mt-4"
-                        onClick={handleSaveKey}
-                        disabled={!apiKey.trim()}
-                    >
-                        <Save size={18} />
-                        <span>{isSaved ? t('savedLocally') : t('saveKey')}</span>
-                    </button>
-                    <a
-                        href="https://platform.openai.com/api-keys"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-secondary text-center flex items-center justify-center p-3 gap-2 w-full mt-2"
-                    >
-                        <span>{t('getApiKey')}</span>
-                    </a>
-                    <a
-                        href="https://aistudio.google.com/app/apikey"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-secondary text-center flex items-center justify-center p-3 gap-2 w-full mt-2"
-                    >
-                        <span>{t('getGeminiApiKey')}</span>
-                    </a>
-                </div>
             </section>
         </div>
     );

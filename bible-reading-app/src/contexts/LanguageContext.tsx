@@ -61,6 +61,10 @@ const translations: Translations = {
         getGeminiApiKey: '取得 Gemini 金鑰',
         aiModel: 'AI 模型',
         selectAiModel: '選擇 AI 模型',
+        fetchModelsBtn: '取得可用模型',
+        fetchModelsLoading: '載入中...',
+        fetchModelsSuccess: '已成功取得可用模型清單！',
+        fetchModelsError: '無法取得模型，請檢查 API Key 是否正確',
     },
     en: {
         // Layout
@@ -113,6 +117,10 @@ const translations: Translations = {
         getGeminiApiKey: 'Get Gemini Key',
         aiModel: 'AI Model',
         selectAiModel: 'Select AI Model',
+        fetchModelsBtn: 'Fetch Models',
+        fetchModelsLoading: 'Loading...',
+        fetchModelsSuccess: 'Models fetched successfully!',
+        fetchModelsError: 'Failed to fetch models, please check your API Key',
     }
 };
 

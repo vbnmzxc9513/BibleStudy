@@ -1,8 +1,8 @@
-import { createContext, useState, useEffect, useContext, useRef } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 import type { ReactNode } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import type { User } from 'firebase/auth';
-import { auth, loginAnonymously } from '../firebase';
+import { auth, handlePostLoginRedirect } from '../firebase';
 
 interface AuthContextType {
     user: User | null;
@@ -15,29 +15,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
-    const isInitializing = useRef(false);
-
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (currentUser: User | null) => {
-            if (currentUser) {
-                // User is signed in
+        // Handle the result of a redirect-based Google login on page load
+        handlePostLoginRedirect().catch(console.error);
+
+        const unsubscribe = onAuthStateChanged(auth, (currentUser: User | null) => {
+            // Only keep real (non-anonymous) users in state
+            if (currentUser && !currentUser.isAnonymous) {
                 setUser(currentUser);
-                setLoading(false);
-            } else if (!isInitializing.current) {
-                // User is not signed in and we haven't started initializing yet
-                isInitializing.current = true;
-                console.log("No user found. Triggering lazy login...");
-                try {
-                    const newAnonUser = await loginAnonymously();
-                    if (newAnonUser) {
-                        setUser(newAnonUser);
-                    }
-                } finally {
-                    setLoading(false);
-                    // note: we do not reset isInitializing.current to false here on purpose
-                    // so it doesn't infinite loop if the login fails or redirects momentarily.
-                }
+            } else {
+                setUser(null);
             }
+            setLoading(false);
         });
 
         return () => unsubscribe();

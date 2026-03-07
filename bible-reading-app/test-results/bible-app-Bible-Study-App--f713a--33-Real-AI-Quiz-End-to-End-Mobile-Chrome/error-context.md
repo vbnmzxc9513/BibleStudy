@@ -1,0 +1,128 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - main [ref=e4]:
+      - heading "Bible Study" [level=2] [ref=e6]
+      - generic [ref=e7]:
+        - generic [ref=e8]:
+          - button [ref=e9] [cursor=pointer]:
+            - img [ref=e10]
+          - heading "馬太福音 - 第 1 章" [level=3] [ref=e13]
+        - main [ref=e14]:
+          - generic [ref=e15]:
+            - generic [ref=e16]: "1"
+            - paragraph [ref=e17]: 亞伯拉罕的後裔，大衛的子孫（後裔，子孫：原文作兒子；下同）耶穌基督的家譜：
+          - generic [ref=e18]:
+            - generic [ref=e19]: "2"
+            - paragraph [ref=e20]: 亞伯拉罕生以撒；以撒生雅各；雅各生猶大和他的弟兄；
+          - generic [ref=e21]:
+            - generic [ref=e22]: "3"
+            - paragraph [ref=e23]: 猶大從他瑪氏生法勒斯和謝拉；法勒斯生希斯崙；希斯崙生亞蘭；
+          - generic [ref=e24]:
+            - generic [ref=e25]: "4"
+            - paragraph [ref=e26]: 亞蘭生亞米拿達；亞米拿達生拿順；拿順生撒門；
+          - generic [ref=e27]:
+            - generic [ref=e28]: "5"
+            - paragraph [ref=e29]: 撒門從喇合氏生波阿斯；波阿斯從路得氏生俄備得；俄備得生耶西；
+          - generic [ref=e30]:
+            - generic [ref=e31]: "6"
+            - paragraph [ref=e32]: 耶西生大衛王。大衛從烏利亞的妻子生所羅門；
+          - generic [ref=e33]:
+            - generic [ref=e34]: "7"
+            - paragraph [ref=e35]: 所羅門生羅波安；羅波安生亞比雅；亞比雅生亞撒；
+          - generic [ref=e36]:
+            - generic [ref=e37]: "8"
+            - paragraph [ref=e38]: 亞撒生約沙法；約沙法生約蘭；約蘭生烏西雅；
+          - generic [ref=e39]:
+            - generic [ref=e40]: "9"
+            - paragraph [ref=e41]: 烏西雅生約坦；約坦生亞哈斯；亞哈斯生希西家；
+          - generic [ref=e42]:
+            - generic [ref=e43]: "10"
+            - paragraph [ref=e44]: 希西家生瑪拿西；瑪拿西生亞們；亞們生約西亞；
+          - generic [ref=e45]:
+            - generic [ref=e46]: "11"
+            - paragraph [ref=e47]: 百姓被遷到巴比倫的時候，約西亞生耶哥尼雅和他的弟兄。
+          - generic [ref=e48]:
+            - generic [ref=e49]: "12"
+            - paragraph [ref=e50]: 遷到巴比倫之後，耶哥尼雅生撒拉鐵；撒拉鐵生所羅巴伯；
+          - generic [ref=e51]:
+            - generic [ref=e52]: "13"
+            - paragraph [ref=e53]: 所羅巴伯生亞比玉；亞比玉生以利亞敬；以利亞敬生亞所；
+          - generic [ref=e54]:
+            - generic [ref=e55]: "14"
+            - paragraph [ref=e56]: 亞所生撒督；撒督生亞金；亞金生以律；
+          - generic [ref=e57]:
+            - generic [ref=e58]: "15"
+            - paragraph [ref=e59]: 以律生以利亞撒；以利亞撒生馬但；馬但生雅各；
+          - generic [ref=e60]:
+            - generic [ref=e61]: "16"
+            - paragraph [ref=e62]: 雅各生約瑟，就是馬利亞的丈夫。那稱為基督的耶穌是從馬利亞生的。
+          - generic [ref=e63]:
+            - generic [ref=e64]: "17"
+            - paragraph [ref=e65]: 這樣，從亞伯拉罕到大衛共有十四代；從大衛到遷至巴比倫的時候也有十四代；從遷至巴比倫的時候到基督又有十四代。
+          - generic [ref=e66]:
+            - generic [ref=e67]: "18"
+            - paragraph [ref=e68]: 耶穌基督降生的事記在下面：他母親馬利亞已經許配了約瑟，還沒有迎娶，馬利亞就從聖靈懷了孕。
+          - generic [ref=e69]:
+            - generic [ref=e70]: "19"
+            - paragraph [ref=e71]: 他丈夫約瑟是個義人，不願意明明的羞辱他，想要暗暗的把他休了。
+          - generic [ref=e72]:
+            - generic [ref=e73]: "20"
+            - paragraph [ref=e74]: 正思念這事的時候，有主的使者向他夢中顯現，說：「大衛的子孫約瑟，不要怕！只管娶過你的妻子馬利亞來，因他所懷的孕是從聖靈來的。
+          - generic [ref=e75]:
+            - generic [ref=e76]: "21"
+            - paragraph [ref=e77]: 他將要生一個兒子，你要給他起名叫耶穌，因他要將自己的百姓從罪惡裡救出來。」
+          - generic [ref=e78]:
+            - generic [ref=e79]: "22"
+            - paragraph [ref=e80]: 這一切的事成就是要應驗主藉先知所說的話，
+          - generic [ref=e81]:
+            - generic [ref=e82]: "23"
+            - paragraph [ref=e83]: 說：「必有童女懷孕生子；人要稱他的名為以馬內利。」（以馬內利繙出來就是「神與我們同在」。）
+          - generic [ref=e84]:
+            - generic [ref=e85]: "24"
+            - paragraph [ref=e86]: 約瑟醒了，起來，就遵著主使者的吩咐把妻子娶過來；
+          - generic [ref=e87]:
+            - generic [ref=e88]: "25"
+            - paragraph [ref=e89]: 只是沒有和他同房，等他生了兒子（有古卷：等他生了頭胎的兒子），就給他起名叫耶穌。
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - img [ref=e92]
+            - heading "深入了解" [level=4] [ref=e95]
+          - paragraph [ref=e96]: 您希望 AI 為您解說本章的光照與神學意涵嗎？
+          - generic [ref=e98]:
+            - button "深入了解" [ref=e99] [cursor=pointer]:
+              - generic [ref=e100]:
+                - img [ref=e101]
+                - generic [ref=e104]: 深入了解
+            - button "開始測驗" [ref=e105] [cursor=pointer]:
+              - generic [ref=e106]:
+                - img [ref=e107]
+                - generic [ref=e110]: 開始測驗
+        - generic [ref=e111]:
+          - button "上一章" [disabled] [ref=e112]:
+            - img [ref=e113]
+            - generic [ref=e115]: 上一章
+          - button "下一章" [ref=e116] [cursor=pointer]:
+            - generic [ref=e117]: 下一章
+            - img [ref=e118]
+    - navigation [ref=e120]:
+      - button "EN" [ref=e121]:
+        - img [ref=e122]
+        - generic [ref=e126]: EN
+      - link "首頁" [ref=e127] [cursor=pointer]:
+        - /url: "#/"
+        - img [ref=e128]
+        - generic [ref=e131]: 首頁
+      - link "聖經" [ref=e132] [cursor=pointer]:
+        - /url: "#/books"
+        - img [ref=e133]
+        - generic [ref=e135]: 聖經
+      - link "個人" [ref=e136] [cursor=pointer]:
+        - /url: "#/profile"
+        - img [ref=e137]
+        - generic [ref=e140]: 個人
+  - iframe [ref=e141]:
+    
+```

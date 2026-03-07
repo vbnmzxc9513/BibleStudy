@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { Home, BookOpen, User, Settings, Languages, Book } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import AISettingsModal from '../AISettingsModal/AISettingsModal';
 import './Layout.css';
 
 const Layout = () => {
     const { t, toggleLanguage, language } = useLanguage();
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const navigate = useNavigate();
 
     const navItems = [
@@ -43,7 +45,7 @@ const Layout = () => {
                 </nav>
 
                 <div className="sidebar-footer">
-                    <button className="btn btn-secondary w-full" onClick={() => {/* Open Settings Mode */ }}>
+                    <button className="btn btn-secondary w-full" onClick={() => setIsSettingsOpen(true)}>
                         <Settings size={20} />
                         <span>{t('aiSettings')}</span>
                     </button>
@@ -57,6 +59,8 @@ const Layout = () => {
                 </div>
                 <Outlet />
             </main>
+
+            <AISettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
 
             {/* Mobile Bottom Navigation */}
             <nav className="mobile-nav">
