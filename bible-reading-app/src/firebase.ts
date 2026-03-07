@@ -6,6 +6,7 @@ import {
     signInWithPopup,
     signInWithRedirect,
     getRedirectResult,
+    signOut,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -38,6 +39,15 @@ export const loginWithGoogle = async () => {
         } else {
             throw error;
         }
+    }
+};
+
+export const logout = async () => {
+    try {
+        await signOut(auth);
+    } catch (error: any) {
+        console.error("Logout failed:", error);
+        throw error;
     }
 };
 
