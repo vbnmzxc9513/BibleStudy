@@ -71,6 +71,8 @@ describe('Dashboard', () => {
         });
 
         // Streak calculation should identify today as 1 day
-        expect(screen.getByText('1 天')).toBeInTheDocument();
+        await waitFor(() => {
+            expect(screen.getByText('1 天')).toBeInTheDocument();
+        });
     });
 });

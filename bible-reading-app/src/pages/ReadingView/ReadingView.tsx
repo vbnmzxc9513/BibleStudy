@@ -104,6 +104,11 @@ const ReadingView = () => {
                 setShowDeepDive(true);
                 setShowQuiz(false);
             }
+        } catch (error: any) {
+            alert(
+                (language === 'zh_TW' ? '產生內容時發生錯誤：\n' : 'Error generating content:\n') +
+                (error.message || 'Unknown error')
+            );
         } finally {
             setIsGeneratingDeepDive(false);
         }
@@ -135,9 +140,12 @@ const ReadingView = () => {
                 setShowQuiz(false);
                 alert(t('apiErrorPleaseCheckKey'));
             }
-        } catch (error) {
+        } catch (error: any) {
             setShowQuiz(false);
-            alert(t('apiErrorPleaseCheckKey'));
+            alert(
+                (language === 'zh_TW' ? '產生測驗時發生錯誤：\n' : 'Error generating quiz:\n') +
+                (error.message || t('apiErrorPleaseCheckKey'))
+            );
         } finally {
             setIsGenerating(false);
         }

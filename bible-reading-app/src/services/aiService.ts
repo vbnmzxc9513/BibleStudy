@@ -29,7 +29,7 @@ ${versesText}`;
         const model = localStorage.getItem('ai_model') || defaultModel;
 
         if (isGemini) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey.trim()}`;
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -38,7 +38,10 @@ ${versesText}`;
                 })
             });
 
-            if (!response.ok) throw new Error("Gemini API Error");
+            if (!response.ok) {
+                const errText = await response.text();
+                throw new Error(`Gemini API Error: ${response.status} ${errText}`);
+            }
             const data = await response.json();
             return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
         } else {
@@ -47,7 +50,7 @@ ${versesText}`;
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiKey}`
+                    'Authorization': `Bearer ${apiKey.trim()}`
                 },
                 body: JSON.stringify({
                     model: model,
@@ -55,13 +58,16 @@ ${versesText}`;
                 })
             });
 
-            if (!response.ok) throw new Error("OpenAI API Error");
+            if (!response.ok) {
+                const errText = await response.text();
+                throw new Error(`OpenAI API Error: ${response.status} ${errText}`);
+            }
             const data = await response.json();
             return data.choices?.[0]?.message?.content || null;
         }
-    } catch (e) {
+    } catch (e: any) {
         console.error("AI Deep Dive Generation failed:", e);
-        return null;
+        throw e;
     }
 };
 
@@ -106,7 +112,7 @@ Format required:
         const model = localStorage.getItem('ai_model') || defaultModel;
 
         if (isGemini) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey.trim()}`;
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -118,7 +124,10 @@ Format required:
                 })
             });
 
-            if (!response.ok) throw new Error("Gemini API Error");
+            if (!response.ok) {
+                const errText = await response.text();
+                throw new Error(`Gemini API Error: ${response.status} ${errText}`);
+            }
 
             const data = await response.json();
             const content = data.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
@@ -132,7 +141,7 @@ Format required:
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiKey}`
+                    'Authorization': `Bearer ${apiKey.trim()}`
                 },
                 body: JSON.stringify({
                     model: model,
@@ -141,15 +150,18 @@ Format required:
                 })
             });
 
-            if (!response.ok) throw new Error("OpenAI API Error");
+            if (!response.ok) {
+                const errText = await response.text();
+                throw new Error(`OpenAI API Error: ${response.status} ${errText}`);
+            }
 
             const data = await response.json();
             const content = data.choices?.[0]?.message?.content || "{}";
 
             return JSON.parse(content) as QuizResult[];
         }
-    } catch (e) {
+    } catch (e: any) {
         console.error("AI Quiz Generation failed:", e);
-        return null; // Fallback handled by UI
+        throw e;
     }
 };
