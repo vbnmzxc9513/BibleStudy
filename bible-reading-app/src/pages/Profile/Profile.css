@@ -99,3 +99,129 @@
 .btn-success:hover {
     background-color: #059669;
 }
+
+/* Custom Range Slider */
+.custom-range {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    border-radius: var(--radius-full);
+    outline: none;
+    transition: background var(--transition-fast);
+    cursor: pointer;
+}
+
+.custom-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--brand-color);
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: 3px solid white;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+}
+
+.custom-range::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.custom-range::-moz-range-thumb {
+    width: 18px;
+    /* Slightly smaller for moz given border works differently */
+    height: 18px;
+    border-radius: 50%;
+    background: var(--brand-color);
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+}
+
+.custom-range::-moz-range-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* Font Settings Layout */
+.font-settings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.font-slider-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0 0.5rem;
+}
+
+.font-slider {
+    flex: 1;
+}
+
+.font-label {
+    color: var(--text-muted);
+    min-width: 2.5rem;
+}
+
+.font-label-small {
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: right;
+}
+
+.font-label-large {
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: left;
+}
+
+.font-preview-box {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 2rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+.font-preview-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background-color: var(--brand-color);
+    opacity: 0.8;
+}
+
+.font-preview-text {
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.8;
+    transition: font-size 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: left;
+    width: 100%;
+}
+
+.font-settings-hint {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-align: center;
+    background-color: var(--accent-light);
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+}

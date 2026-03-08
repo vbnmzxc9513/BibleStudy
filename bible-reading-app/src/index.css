@@ -297,3 +297,28 @@ a:hover {
     max-width: 900px;
   }
 }
+
+/* Font Size Themes */
+:root {
+  --reading-font-size: 1.15rem;
+}
+
+body.theme-font-1 {
+  --reading-font-size: 0.9rem;
+}
+
+body.theme-font-2 {
+  --reading-font-size: 1.1rem;
+}
+
+body.theme-font-3 {
+  --reading-font-size: 1.3rem;
+}
+
+body.theme-font-4 {
+  --reading-font-size: 1.55rem;
+}
+
+body.theme-font-5 {
+  --reading-font-size: 1.85rem;
+}

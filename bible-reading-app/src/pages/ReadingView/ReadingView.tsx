@@ -8,7 +8,7 @@ import { bibleBooks } from '../../constants/bibleBooks';
 import { db } from '../../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { saveUserProgress } from '../../services/progressService';
-import { generateQuizFromAI, generateDeepDiveFromAI } from '../../services/aiService';
+import { generateCombinedAIContent, fetchAIContentFromFirebase, saveAIContentToFirebase } from '../../services/aiService';
 import type { QuizResult } from '../../services/aiService';
 import './ReadingView.css';
 
@@ -38,10 +38,10 @@ const ReadingView = () => {
 
     const [showDeepDive, setShowDeepDive] = useState(false);
     const [deepDiveText, setDeepDiveText] = useState<string | null>(null);
-    const [isGeneratingDeepDive, setIsGeneratingDeepDive] = useState(false);
 
     const [showQuiz, setShowQuiz] = useState(false);
     const [isGenerating, setIsGenerating] = useState(false);
+    const [cachedAIContent, setCachedAIContent] = useState<{ deepDive: string, quiz: QuizResult[] } | null>(null);
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
     const [quizCompleted, setQuizCompleted] = useState(false);
     const [quizData, setQuizData] = useState<QuizResult[] | null>(null);
@@ -80,74 +80,107 @@ const ReadingView = () => {
         fetchChapterData();
     }, [safeBookId, safeChapter]);
 
+    // Fetch cached AI data
+    useEffect(() => {
+        const fetchAICache = async () => {
+            if (user && !user.isAnonymous) {
+                const cached = await fetchAIContentFromFirebase(user.uid, safeBookId, safeChapter);
+                if (cached) {
+                    setCachedAIContent(cached);
+                    setDeepDiveText(cached.deepDive);
+                    setQuizData(cached.quiz);
+                }
+            }
+        };
+        fetchAICache();
+    }, [user, safeBookId, safeChapter]);
+
     const mockDeepDiveZh = "這段經文充滿了許多深刻的屬靈意義。它提醒我們，神的話語不僅是歷史的紀錄，更是要在我們現在的生活中產生功效的...";
     const mockDeepDiveEn = "This passage is full of profound spiritual meaning. It reminds us that God's word is not just a historical record, but meant to be active and alive in our lives today...";
 
     const currentDeepDiveText = deepDiveText || (language === 'zh_TW' ? mockDeepDiveZh : mockDeepDiveEn);
 
-    const handleGenerateDeepDive = async () => {
-        setIsGeneratingDeepDive(true);
-        const apiKey = localStorage.getItem('ai_api_key');
-
-        if (!apiKey) {
-            alert(t('apiKeyWarning'));
-            setIsGeneratingDeepDive(false);
-            return;
-        }
-
-        const versesText = verses.map(v => `${v.number || v.verse} ${v.text}`).join('\n');
-
-        try {
-            const generated = await generateDeepDiveFromAI(versesText, language, apiKey);
-            if (generated) {
-                setDeepDiveText(generated);
-                setShowDeepDive(true);
-                setShowQuiz(false);
-            }
-        } catch (error: any) {
-            alert(
-                (language === 'zh_TW' ? '產生內容時發生錯誤：\n' : 'Error generating content:\n') +
-                (error.message || 'Unknown error')
-            );
-        } finally {
-            setIsGeneratingDeepDive(false);
-        }
-    };
-
-    const handleGenerateQuiz = async () => {
+    const handleGenerateCombinedAI = async (forceRegenerate: boolean = false) => {
         const apiKey = localStorage.getItem('ai_api_key');
         if (!apiKey) {
             alert(t('apiKeyWarning'));
-            return;
+            return false;
+        }
+
+        if (!forceRegenerate && cachedAIContent) {
+            // Already cached, just return success
+            return true;
         }
 
         setIsGenerating(true);
-        setShowQuiz(true);
-        setShowDeepDive(false);
         const combinedText = verses.map(v => `${v.number || v.verse}: ${v.text}`).join('\n');
 
         try {
-            const quiz = await generateQuizFromAI(combinedText, language, apiKey);
-            if (quiz && Array.isArray(quiz) && quiz.length > 0) {
-                setQuizData(quiz);
+            const combinedResult = await generateCombinedAIContent(combinedText, language, apiKey);
+            if (combinedResult && combinedResult.deepDive && Array.isArray(combinedResult.quiz) && combinedResult.quiz.length > 0) {
+
+                setCachedAIContent(combinedResult);
+                setDeepDiveText(combinedResult.deepDive);
+
+                setQuizData(combinedResult.quiz);
                 setCurrentQuestionIndex(0);
                 setScore(0);
                 setQuizCompleted(false);
                 setSelectedOption(null);
                 setIsAnswerChecked(false);
                 setIsAnswerCorrect(null);
+
+                // Save to Firebase if user is logged in
+                if (user && !user.isAnonymous) {
+                    await saveAIContentToFirebase(user.uid, safeBookId, safeChapter, combinedResult);
+                }
+
+                return true;
             } else {
-                setShowQuiz(false);
                 alert(t('apiErrorPleaseCheckKey'));
+                return false;
             }
         } catch (error: any) {
-            setShowQuiz(false);
+            const isQuotaExhausted = error.message?.includes('QUOTA_EXHAUSTED') || error.message?.includes('429');
+            const errorMsg = isQuotaExhausted ? t('apiQuotaExhausted') : (error.message || t('apiErrorPleaseCheckKey'));
+
             alert(
-                (language === 'zh_TW' ? '產生測驗時發生錯誤：\n' : 'Error generating quiz:\n') +
-                (error.message || t('apiErrorPleaseCheckKey'))
+                (language === 'zh_TW' ? '產生內容時發生錯誤：\n' : 'Error generating content:\n') + errorMsg
             );
+            return false;
         } finally {
             setIsGenerating(false);
+        }
+    };
+
+    const handleGenerateDeepDive = async () => {
+        const success = await handleGenerateCombinedAI();
+        if (success) {
+            setShowDeepDive(true);
+            setShowQuiz(false);
+        }
+    };
+
+    const handleGenerateQuiz = async () => {
+        const success = await handleGenerateCombinedAI();
+        if (success) {
+            setShowQuiz(true);
+            setShowDeepDive(false);
+        }
+    };
+
+    const handleRegenerateAI = async () => {
+        if (!confirm(language === 'zh_TW' ? '確定要重新生成 AI 內容嗎？這將會消耗 API 額度。' : 'Are you sure you want to regenerate AI content? This will consume API quota.')) {
+            return;
+        }
+
+        setShowDeepDive(false);
+        setShowQuiz(false);
+
+        const success = await handleGenerateCombinedAI(true);
+        if (success) {
+            // Re-open whichever was open, or default to Deep Dive
+            setShowDeepDive(true);
         }
     };
 
@@ -234,21 +267,36 @@ const ReadingView = () => {
             </main>
 
             <div className="ai-companion-section glass-card delay-200 mt-8 relative">
-                <div className="ai-companion-header">
-                    <Sparkles size={24} className="icon-gold" />
-                    <h4>{t('deepenUnderstanding')}</h4>
+                <div className="ai-companion-header flex justify-between items-center w-full">
+                    <div className="flex items-center gap-2">
+                        <Sparkles size={24} className="icon-gold" />
+                        <h4>{t('deepenUnderstanding')}</h4>
+                    </div>
+                    {cachedAIContent && (
+                        <button
+                            className="bg-bg-tertiary hover:bg-border-color text-text-secondary px-3 py-1.5 rounded-md text-sm transition-colors flex items-center gap-1.5"
+                            onClick={handleRegenerateAI}
+                            disabled={isGenerating}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={isGenerating ? "animate-spin" : ""}>
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                                <path d="M3 3v5h5"></path>
+                            </svg>
+                            {language === 'zh_TW' ? '重新生成' : 'Regenerate'}
+                        </button>
+                    )}
                 </div>
                 <p className="mb-4">{t('aiPrompt')}</p>
                 <div className="quiz-trigger-section">
                     <div className="quiz-trigger-buttons">
                         <button
-                            className={`btn flex-1 premium-deep-dive-btn ${isGeneratingDeepDive || verses.length === 0 ? 'disabled-btn' : ''}`}
+                            className={`btn flex-1 premium-deep-dive-btn ${isGenerating || verses.length === 0 ? 'disabled-btn' : ''}`}
                             onClick={handleGenerateDeepDive}
-                            disabled={isGeneratingDeepDive || verses.length === 0}
+                            disabled={isGenerating || verses.length === 0}
                         >
                             <div className="btn-content">
-                                {isGeneratingDeepDive ? <Loader2 size={20} className="animate-spin" /> : <Sparkles size={20} className="icon-glow" />}
-                                <span>{isGeneratingDeepDive ? t('generatingContent') : t('deepenUnderstanding')}</span>
+                                {isGenerating && !cachedAIContent && showDeepDive === false ? <Loader2 size={20} className="animate-spin" /> : <Sparkles size={20} className="icon-glow" />}
+                                <span>{isGenerating && !cachedAIContent && showDeepDive === false ? t('generatingContent') : t('deepenUnderstanding')}</span>
                             </div>
                             <div className="btn-glow"></div>
                         </button>
@@ -259,8 +307,8 @@ const ReadingView = () => {
                             disabled={isGenerating || verses.length === 0}
                         >
                             <div className="btn-content">
-                                {isGenerating ? <Loader2 size={20} className="animate-spin" /> : <CheckCircle size={20} />}
-                                <span>{isGenerating ? (language === 'zh_TW' ? '產生中...' : 'Generating...') : t('startQuiz')}</span>
+                                {isGenerating && !cachedAIContent && showQuiz === false ? <Loader2 size={20} className="animate-spin" /> : <CheckCircle size={20} />}
+                                <span>{isGenerating && !cachedAIContent && showQuiz === false ? (language === 'zh_TW' ? '產生中...' : 'Generating...') : t('startQuiz')}</span>
                             </div>
                         </button>
                     </div>

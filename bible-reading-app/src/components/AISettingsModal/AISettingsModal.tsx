@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Key, ShieldCheck, Save, Cpu, X, RefreshCw, CheckCircle, AlertCircle } from 'lucide-react';
+import { Key, ShieldCheck, Save, Cpu, X, RefreshCw, CheckCircle, AlertCircle, Activity } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { getDailyApiUsage, getModelDailyLimit } from '../../services/aiService';
 import './AISettingsModal.css';
 
 interface AISettingsModalProps {
@@ -91,6 +92,10 @@ const AISettingsModal: React.FC<AISettingsModalProps> = ({ isOpen, onClose }) =>
 
     const displayModels = fetchedModels.length > 0 ? fetchedModels : defaultModels;
 
+    const dailyLimit = getModelDailyLimit(aiModel);
+    const dailyUsage = getDailyApiUsage();
+    const remainingQuota = Math.max(0, dailyLimit - dailyUsage);
+
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content glass-card" onClick={e => e.stopPropagation()}>
@@ -175,8 +180,13 @@ const AISettingsModal: React.FC<AISettingsModalProps> = ({ isOpen, onClose }) =>
                     </div>
                 </div>
 
+                <div className="text-sm mt-3 flex items-center gap-1.5" style={{ color: remainingQuota > 0 ? '#10b981' : '#ef4444' }}>
+                    <Activity size={16} />
+                    <span>{t('apiQuotaRemaining', { count: remainingQuota })}</span>
+                </div>
+
                 <button
-                    className="btn btn-primary w-full mt-6"
+                    className="btn btn-primary w-full mt-5"
                     onClick={handleSaveKey}
                     disabled={!apiKey.trim()}
                 >

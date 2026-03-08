@@ -1,7 +1,7 @@
-
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { AuthProvider } from './contexts/AuthContext';
+import { SettingsProvider } from './contexts/SettingsContext';
 import Layout from './components/Layout/Layout';
 import Dashboard from './pages/Dashboard/Dashboard';
 import BookSelection from './pages/BookSelection/BookSelection';
@@ -12,17 +12,19 @@ function App() {
   return (
     <AuthProvider>
       <LanguageProvider>
-        <BrowserRouter basename={import.meta.env.BASE_URL}>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="books" element={<BookSelection />} />
-              <Route path="read/:bookId/:chapter" element={<ReadingView />} />
-              <Route path="profile" element={<Profile />} />
-            </Route>
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </BrowserRouter>
+        <SettingsProvider>
+          <BrowserRouter basename={import.meta.env.BASE_URL}>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="books" element={<BookSelection />} />
+                <Route path="read/:bookId/:chapter" element={<ReadingView />} />
+                <Route path="profile" element={<Profile />} />
+              </Route>
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </BrowserRouter>
+        </SettingsProvider>
       </LanguageProvider>
     </AuthProvider>
   );

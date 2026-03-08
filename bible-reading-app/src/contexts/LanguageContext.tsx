@@ -45,6 +45,7 @@ const translations: Translations = {
         guestProgressWarning: '⚠️ 您目前為訪客身分（未登入）。本次測驗進度僅保存在本地，不會同步至雲端喔！',
         apiGenerationFailed: '❌ AI 產生失敗。請稍後再試。',
         apiErrorPleaseCheckKey: '⚠️ 發生錯誤！請確認您的 API Key 是否正確或尚有額度。',
+        apiQuotaExhausted: '⚠️ 您的 API 額度已耗盡！請明天再試或更換 API Key。',
 
         // Profile
         yourProfile: '您的個人資料',
@@ -65,6 +66,7 @@ const translations: Translations = {
         fetchModelsLoading: '載入中...',
         fetchModelsSuccess: '已成功取得可用模型清單！',
         fetchModelsError: '無法取得模型，請檢查 API Key 是否正確',
+        apiQuotaRemaining: '今日剩餘 API 次數：{count} 次',
     },
     en: {
         // Layout
@@ -101,6 +103,7 @@ const translations: Translations = {
         guestProgressWarning: '⚠️ You are currently a guest user. Your quiz progress is only saved locally and will not sync to the cloud!',
         apiGenerationFailed: '❌ AI generation failed. Please try again later.',
         apiErrorPleaseCheckKey: '⚠️ Error occurred! Please check if your API Key is correct or has remaining quota.',
+        apiQuotaExhausted: '⚠️ Your API quota is exhausted! Please try again tomorrow or change your API Key.',
 
         // Profile
         yourProfile: 'Your Profile',
@@ -121,6 +124,7 @@ const translations: Translations = {
         fetchModelsLoading: 'Loading...',
         fetchModelsSuccess: 'Models fetched successfully!',
         fetchModelsError: 'Failed to fetch models, please check your API Key',
+        apiQuotaRemaining: 'API Quota Remaining Today: {count}',
     }
 };
 

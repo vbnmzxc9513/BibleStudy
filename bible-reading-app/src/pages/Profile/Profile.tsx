@@ -1,12 +1,14 @@
-import { User as UserIcon, LogOut } from 'lucide-react';
+import { User as UserIcon, LogOut, Type } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
+import { useSettings } from '../../contexts/SettingsContext';
 import { loginWithGoogle, logout } from '../../firebase';
 import './Profile.css';
 
 const Profile = () => {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const { user, loading } = useAuth();
+    const { fontSize, setFontSize } = useSettings();
 
     // Safely extract display name
     let finalDisplayName = t('guestUser');
@@ -64,6 +66,48 @@ const Profile = () => {
                         <span className="font-medium">登出 / Logout</span>
                     </button>
                 )}
+            </section>
+            <section className="glass-card mt-6">
+                <div className="flex items-center gap-2 mb-4 border-b border-border-color pb-3">
+                    <Type size={20} className="text-brand-color" />
+                    <h3 className="text-lg font-semibold m-0">{language === 'zh_TW' ? '閱讀字體大小' : 'Reading Font Size'}</h3>
+                </div>
+                <div className="font-settings-container">
+                    <div className="font-slider-wrapper">
+                        <span className="font-label font-label-small">A-</span>
+                        <input
+                            type="range"
+                            min="1"
+                            max="5"
+                            step="1"
+                            value={fontSize}
+                            onChange={(e) => setFontSize(e.target.value as any)}
+                            className="custom-range font-slider"
+                            style={{
+                                background: `linear-gradient(to right, var(--brand-color) ${((parseInt(fontSize) - 1) / 4) * 100}%, var(--border-color) ${((parseInt(fontSize) - 1) / 4) * 100}%)`
+                            }}
+                        />
+                        <span className="font-label font-label-large">A+</span>
+                    </div>
+
+                    {/* Dynamic text preview */}
+                    <div className="font-preview-box">
+                        <div className="font-preview-accent"></div>
+                        <p
+                            className="font-preview-text"
+                            style={{
+                                fontSize: 'var(--reading-font-size, 1.15rem)'
+                            }}
+                        >
+                            {language === 'zh_TW'
+                                ? '太初有道，道與　神同在，道就是　神。'
+                                : 'In the beginning was the Word, and the Word was with God, and the Word was God.'}
+                        </p>
+                    </div>
+                </div>
+                <p className="font-settings-hint">
+                    {language === 'zh_TW' ? '這將會套用到經文閱讀畫面。' : 'This will apply to the scripture reading view.'}
+                </p>
             </section>
         </div>
     );
