@@ -66,7 +66,6 @@ const translations: Translations = {
         fetchModelsLoading: '載入中...',
         fetchModelsSuccess: '已成功取得可用模型清單！',
         fetchModelsError: '無法取得模型，請檢查 API Key 是否正確',
-        apiQuotaRemaining: '今日剩餘 API 次數：{count} 次',
     },
     en: {
         // Layout
@@ -124,7 +123,6 @@ const translations: Translations = {
         fetchModelsLoading: 'Loading...',
         fetchModelsSuccess: 'Models fetched successfully!',
         fetchModelsError: 'Failed to fetch models, please check your API Key',
-        apiQuotaRemaining: 'API Quota Remaining Today: {count}',
     }
 };
 

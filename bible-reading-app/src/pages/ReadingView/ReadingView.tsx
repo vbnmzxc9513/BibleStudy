@@ -82,6 +82,21 @@ const ReadingView = () => {
 
     // Fetch cached AI data
     useEffect(() => {
+        // Reset AI states when chapter changes
+        setCachedAIContent(null);
+        setDeepDiveText(null);
+        setQuizData(null);
+        setShowDeepDive(false);
+        setShowQuiz(false);
+        setQuizCompleted(false);
+        setSelectedOption(null);
+        setIsAnswerChecked(false);
+        setIsAnswerCorrect(null);
+        setCurrentQuestionIndex(0);
+        setScore(0);
+        setSaveError(false);
+        setIsGenerating(false);
+
         const fetchAICache = async () => {
             if (user && !user.isAnonymous) {
                 const cached = await fetchAIContentFromFirebase(user.uid, safeBookId, safeChapter);

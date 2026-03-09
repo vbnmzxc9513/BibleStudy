@@ -6,32 +6,8 @@ export interface QuizResult {
     aiFeedback: string;
 }
 
-// Helper functions for API quota tracking
-export const getDailyApiUsageKey = () => {
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-    return `ai_api_usage_${today}`;
-};
+// Helper functions for API quota tracking (Removed: cannot fetch real external quotas accurately from frontend)
 
-export const getDailyApiUsage = (): number => {
-    const key = getDailyApiUsageKey();
-    const usage = localStorage.getItem(key);
-    return usage ? parseInt(usage, 10) : 0;
-};
-
-export const incrementDailyApiUsage = () => {
-    const key = getDailyApiUsageKey();
-    const usage = getDailyApiUsage();
-    localStorage.setItem(key, (usage + 1).toString());
-};
-
-export const getModelDailyLimit = (model: string): number => {
-    if (model.includes('gemini-1.5-flash')) return 1500;
-    if (model.includes('gemini-2.5-flash')) return 1500;
-    if (model.includes('gemini-1.5-pro')) return 50;
-    if (model.includes('gpt-4o-mini')) return 200; // Estimated or placeholder for OpenAI
-    if (model.includes('gpt-4o')) return 100; // Estimated or placeholder for OpenAI
-    return 100; // Default fallback
-};
 
 export const generateCombinedAIContent = async (
     versesText: string,
@@ -102,8 +78,6 @@ Format required:
             const data = await response.json();
             const content = data.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
 
-            incrementDailyApiUsage();
-
             return JSON.parse(content) as { deepDive: string, quiz: QuizResult[] };
 
         } else {
@@ -132,8 +106,6 @@ Format required:
 
             const data = await response.json();
             const content = data.choices?.[0]?.message?.content || "{}";
-
-            incrementDailyApiUsage();
 
             return JSON.parse(content) as { deepDive: string, quiz: QuizResult[] };
         }
