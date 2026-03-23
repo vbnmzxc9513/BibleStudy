@@ -97,10 +97,35 @@ const Dashboard = () => {
 
     const heatmapTitle = language === 'zh_TW' ? '閱讀足跡 (最近半年)' : 'Reading Footprint (Last 6 Months)';
 
-    // Localization helpers for hardcoded Matthew data
-    const matthewBook = bibleBooks.find(b => b.id === 'MAT');
-    const matthewName = language === 'zh_TW' ? matthewBook?.cnName : matthewBook?.enName;
-    const heroSubtitle = language === 'zh_TW' ? '耶穌基督的家譜' : 'The Genealogy of Jesus';
+    // Determine the target for "Continue Reading"
+    let targetBookId = 'MAT';
+    let targetChapter = 1;
+
+    if (history.length > 0) {
+        const lastRead = history[0];
+        targetBookId = lastRead.bookId;
+        targetChapter = lastRead.chapter;
+        
+        const bookInfo = bibleBooks.find(b => b.id === targetBookId);
+        if (bookInfo) {
+            if (targetChapter < bookInfo.chapters) {
+                targetChapter += 1;
+            } else {
+                const bookIndex = bibleBooks.findIndex(b => b.id === targetBookId);
+                if (bookIndex >= 0 && bookIndex < bibleBooks.length - 1) {
+                    targetBookId = bibleBooks[bookIndex + 1].id;
+                    targetChapter = 1;
+                } else {
+                    targetBookId = 'GEN';
+                    targetChapter = 1;
+                }
+            }
+        }
+    }
+
+    const targetBook = bibleBooks.find(b => b.id === targetBookId) || bibleBooks[0];
+    const targetBookName = language === 'zh_TW' ? targetBook.cnName : targetBook.enName;
+    const heroSubtitle = language === 'zh_TW' ? '繼續您的閱讀之旅' : 'Continue your spiritual journey';
 
     // Derived Progress Calculations
     const otBooks = bibleBooks.filter(b => b.testament === 'OT');
@@ -136,12 +161,12 @@ const Dashboard = () => {
                         <BookOpen size={40} className="text-brand-color" />
                     </div>
                     <div className="hero-text">
-                        <h2 className="text-xl font-bold font-serif mb-1">{matthewName} - {t('chapterStr', { num: 1 })}</h2>
+                        <h2 className="text-xl font-bold font-serif mb-1">{targetBookName} - {t('chapterStr', { num: targetChapter })}</h2>
                         <p className="text-text-secondary text-sm">{heroSubtitle}</p>
                     </div>
                 </div>
                 <div className="hero-actions mt-4 sm:mt-0">
-                    <button className="btn btn-primary w-full sm:w-auto px-6 py-2.5 shadow-md flex items-center justify-center gap-2" onClick={() => navigate('/read/MAT/1')}>
+                    <button className="btn btn-primary w-full sm:w-auto px-6 py-2.5 shadow-md flex items-center justify-center gap-2" onClick={() => navigate(`/read/${targetBookId}/${targetChapter}`)}>
                         <Play size={18} fill="currentColor" />
                         <span className="font-medium">{t('resumeReading')}</span>
                     </button>

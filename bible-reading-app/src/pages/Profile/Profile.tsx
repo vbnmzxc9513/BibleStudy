@@ -1,4 +1,4 @@
-import { User as UserIcon, LogOut, Type } from 'lucide-react';
+import { User as UserIcon, LogOut, Type, Languages } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { useSettings } from '../../contexts/SettingsContext';
@@ -6,7 +6,7 @@ import { loginWithGoogle, logout } from '../../firebase';
 import './Profile.css';
 
 const Profile = () => {
-    const { t, language } = useLanguage();
+    const { t, language, toggleLanguage } = useLanguage();
     const { user, loading } = useAuth();
     const { fontSize, setFontSize } = useSettings();
 
@@ -67,6 +67,28 @@ const Profile = () => {
                     </button>
                 )}
             </section>
+            {/* Language Toggle Section */}
+            <section className="glass-card mt-6">
+                <div className="flex items-center gap-2 mb-4 border-b border-border-color pb-3">
+                    <Languages size={20} className="text-brand-color" />
+                    <h3 className="text-lg font-semibold m-0">{language === 'zh_TW' ? '介面語言' : 'Interface Language'}</h3>
+                </div>
+                <div className="lang-toggle-profile">
+                    <button
+                        className={`lang-option-btn ${language === 'zh_TW' ? 'active' : ''}`}
+                        onClick={() => language !== 'zh_TW' && toggleLanguage()}
+                    >
+                        繁體中文
+                    </button>
+                    <button
+                        className={`lang-option-btn ${language === 'en' ? 'active' : ''}`}
+                        onClick={() => language !== 'en' && toggleLanguage()}
+                    >
+                        English
+                    </button>
+                </div>
+            </section>
+
             <section className="glass-card mt-6">
                 <div className="flex items-center gap-2 mb-4 border-b border-border-color pb-3">
                     <Type size={20} className="text-brand-color" />

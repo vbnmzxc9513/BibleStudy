@@ -225,3 +225,35 @@
     padding: 0.75rem;
     border-radius: var(--radius-md);
 }
+
+/* Language Toggle in Profile */
+.lang-toggle-profile {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.lang-option-btn {
+    flex: 1;
+    padding: 0.65rem 1rem;
+    border: 2px solid var(--border-color);
+    background-color: var(--bg-secondary);
+    color: var(--text-muted);
+    border-radius: var(--radius-full);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.lang-option-btn:hover {
+    border-color: var(--brand-color);
+    color: var(--text-primary);
+}
+
+.lang-option-btn.active {
+    background-color: var(--brand-color);
+    border-color: var(--brand-color);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

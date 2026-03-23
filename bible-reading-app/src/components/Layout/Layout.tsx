@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
-import { Home, BookOpen, User, Settings, Languages, Book } from 'lucide-react';
+import { Home, BookOpen, User, Settings, Book } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import AISettingsModal from '../AISettingsModal/AISettingsModal';
 import './Layout.css';
 
 const Layout = () => {
-    const { t, toggleLanguage, language } = useLanguage();
+    const { t } = useLanguage();
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const navigate = useNavigate();
 
@@ -25,10 +25,7 @@ const Layout = () => {
                         <Book className="brand-icon" size={32} />
                         <h1 className="brand-title">Bible Study</h1>
                     </div>
-                    <button className="lang-toggle-btn" onClick={toggleLanguage} title="Switch Language">
-                        <Languages size={20} />
-                        <span className="lang-text">{language === 'zh_TW' ? 'EN' : '中'}</span>
-                    </button>
+
                 </div>
 
                 <nav className="desktop-nav">
@@ -64,10 +61,6 @@ const Layout = () => {
 
             {/* Mobile Bottom Navigation */}
             <nav className="mobile-nav">
-                <button className="mobile-lang-btn" onClick={toggleLanguage}>
-                    <Languages size={24} />
-                    <span>{language === 'zh_TW' ? 'EN' : '中'}</span>
-                </button>
                 {navItems.map((item) => (
                     <NavLink
                         key={item.path}
